@@ -1,0 +1,10 @@
+<?php if (!empty($itemSetsTree)): ?>
+    <ul>
+        <?php foreach ($itemSetsTree as $itemSetsTreeNode): ?>
+            <li>
+                <a href="<?php echo $itemSetsTreeNode['itemSet']->url(); ?>"><?php echo $this->escapeHtml($itemSetsTreeNode['itemSet']->displayTitle()); ?></a>
+                <?php echo $this->partial('item-sets-tree/item-sets-tree', ['itemSetsTree' => $itemSetsTreeNode['children']]); ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

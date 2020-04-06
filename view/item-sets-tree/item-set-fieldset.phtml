@@ -1,0 +1,15 @@
+<fieldset id="item-sets-tree" class="section">
+    <div class="field">
+        <div class="field-meta">
+            <label for="item-sets-tree-parent-id"><?php echo $this->translate('Parent item set'); ?></label>
+        </div>
+        <div class="inputs">
+            <?php echo $this->itemSetsTreeSelect([
+                'name' => 'item-sets-tree-parent-id',
+                'attributes' => [
+                    'id' => 'item-sets-tree-parent-id',
+                ],
+            ], $itemSet ? $itemSet->id() : null); ?>
+        </div>
+    </div>
+</fieldset>
