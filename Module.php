@@ -104,6 +104,17 @@ class Module extends AbstractModule
                 [$this, 'onItemSetForm']
             );
         }
+
+        $sharedEventManager->attach(
+            'Solr\ValueExtractor\ItemValueExtractor',
+            'solr.value_extractor.fields',
+            [$this, 'onSolrValueExtractorFields']
+        );
+        $sharedEventManager->attach(
+            'Solr\ValueExtractor\ItemValueExtractor',
+            'solr.value_extractor.extract_value',
+            [$this, 'onSolrValueExtractorExtractValue']
+        );
     }
 
     public function onItemSetSave(Event $event)
@@ -161,5 +172,31 @@ class Module extends AbstractModule
                 'label' => 'Parent item set', // @translate
             ],
         ]);
+    }
+
+    public function onSolrValueExtractorFields (Event $event) {
+        $fields = $event->getParam('fields');
+        $fields['item_sets_tree']['label'] = 'Item Sets Tree'; // @translate
+        $fields['item_sets_tree']['children']['ancestors']['label'] = 'All item sets (including ancestors) internal identifiers'; // @translate
+        $event->setParam('fields', $fields);
+    }
+
+    public function onSolrValueExtractorExtractValue (Event $event) {
+        $item = $event->getTarget();
+        $field = $event->getParam('field');
+
+        if ($field === 'item_sets_tree/ancestors') {
+            $itemSetsTree = $this->getServiceLocator()->get('ItemSetsTree');
+            $value = [];
+            foreach ($item->itemSets() as $itemSet) {
+                $value[] = $itemSet->id();
+                $ancestors = $itemSetsTree->getAncestors($itemSet);
+                $value = array_merge($value, array_map(function ($ancestor) {
+                    return $ancestor->id();
+                }, $ancestors));
+            }
+            $value = array_unique($value);
+            $event->setParam('value', $value);
+        }
     }
 }

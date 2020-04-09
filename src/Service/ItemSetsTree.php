@@ -22,6 +22,7 @@
 namespace ItemSetsTree\Service;
 
 use Omeka\Api\Manager as ApiManager;
+use Omeka\Api\Representation\ItemSetRepresentation;
 
 class ItemSetsTree
 {
@@ -63,5 +64,26 @@ class ItemSetsTree
         }
 
         return $itemSetsTree;
+    }
+
+    public function getParent(ItemSetRepresentation $itemSet)
+    {
+        $itemSetsTreeEdges = $this->api->search('item_sets_tree_edges', ['item_set_id' => $itemSet->id()])->getContent();
+        if (!empty($itemSetsTreeEdges)) {
+            $parentItemSet = $itemSetsTreeEdges[0]->parentItemSet();
+
+            return $parentItemSet;
+        }
+    }
+
+    public function getAncestors(ItemSetRepresentation $itemSet)
+    {
+        $ancestors = [];
+        while ($parentItemSet = $this->getParent($itemSet)) {
+            $ancestors[] = $parentItemSet;
+            $itemSet = $parentItemSet;
+        }
+
+        return $ancestors;
     }
 }
