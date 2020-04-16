@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Integration with Solr module
 - Add ability to display items of descendant item sets
+- Show parent item set in admin item set sidebar
 
 ## [0.1.0] - 2020-04-07
 

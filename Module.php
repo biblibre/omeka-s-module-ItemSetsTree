@@ -110,6 +110,16 @@ class Module extends AbstractModule
                 [$this, 'onItemSetForm']
             );
         }
+        $sharedEventManager->attach(
+            'Omeka\Controller\Admin\ItemSet',
+            'view.details',
+            [$this, 'onItemSetDetails']
+        );
+        $sharedEventManager->attach(
+            'Omeka\Controller\Admin\ItemSet',
+            'view.show.sidebar',
+            [$this, 'onItemSetShowSidebar']
+        );
 
         if ($item_sets_include_descendants) {
             $sharedEventManager->attach(
@@ -204,6 +214,22 @@ class Module extends AbstractModule
         $form = $event->getParam('form');
         $itemSet = $view->viewModel()->getCurrent()->getVariable('itemSet');
         echo $view->partial('item-sets-tree/item-set-fieldset', ['form' => $form, 'itemSet' => $itemSet]);
+    }
+
+    public function onItemSetDetails(Event $event)
+    {
+        $view = $event->getTarget();
+        $entity = $event->getParam('entity');
+
+        echo $view->partial('item-sets-tree/item-set-details', ['itemSet' => $entity]);
+    }
+
+    public function onItemSetShowSidebar(Event $event)
+    {
+        $view = $event->getTarget();
+        $itemSet = $view->viewModel()->getCurrent()->getVariable('itemSet');
+
+        echo $view->partial('item-sets-tree/item-set-details', ['itemSet' => $itemSet]);
     }
 
     public function onItemSetFormAddElements(Event $event)

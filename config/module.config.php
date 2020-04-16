@@ -93,6 +93,7 @@ return [
     'view_helpers' => [
         'factories' => [
             'itemSetsTreeSelect' => Service\ViewHelper\ItemSetsTreeSelectFactory::class,
+            'itemSetsTree' => Service\ViewHelper\ItemSetsTreeFactory::class,
         ],
     ],
     'view_manager' => [
