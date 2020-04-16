@@ -21,12 +21,15 @@
 
 namespace ItemSetsTree;
 
+use ItemSetsTree\Form\ConfigForm;
 use Omeka\Module\AbstractModule;
 use Omeka\Permissions\Acl;
 use Zend\EventManager\Event;
 use Zend\EventManager\SharedEventManagerInterface;
+use Zend\Mvc\Controller\AbstractController;
 use Zend\Mvc\MvcEvent;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Zend\View\Renderer\PhpRenderer;
 
 class Module extends AbstractModule
 {
@@ -79,6 +82,9 @@ class Module extends AbstractModule
 
     public function attachListeners(SharedEventManagerInterface $sharedEventManager)
     {
+        $settings = $this->getServiceLocator()->get('Omeka\Settings');
+        $item_sets_include_descendants = $settings->get('itemsetstree_item_sets_include_descendants', 0);
+
         $sharedEventManager->attach('*', 'view.layout', function (Event $event) {
             $view = $event->getTarget();
             $view->headLink()->appendStylesheet($view->assetUrl('css/item-sets-tree.css', 'ItemSetsTree'));
@@ -105,6 +111,14 @@ class Module extends AbstractModule
             );
         }
 
+        if ($item_sets_include_descendants) {
+            $sharedEventManager->attach(
+                'Omeka\Api\Adapter\ItemAdapter',
+                'api.search.pre',
+                [$this, 'onItemApiSearchPre']
+            );
+        }
+
         $sharedEventManager->attach(
             'Solr\ValueExtractor\ItemValueExtractor',
             'solr.value_extractor.fields',
@@ -115,6 +129,36 @@ class Module extends AbstractModule
             'solr.value_extractor.extract_value',
             [$this, 'onSolrValueExtractorExtractValue']
         );
+    }
+
+    public function getConfigForm(PhpRenderer $renderer)
+    {
+        $settings = $this->getServiceLocator()->get('Omeka\Settings');
+        $item_sets_include_descendants = $settings->get('itemsetstree_item_sets_include_descendants', 0);
+
+        $form = new ConfigForm;
+        $form->init();
+        $form->setData([
+            'item_sets_include_descendants' => $item_sets_include_descendants,
+        ]);
+
+        return $renderer->formCollection($form, false);
+    }
+
+    public function handleConfigForm(AbstractController $controller)
+    {
+        $settings = $this->getServiceLocator()->get('Omeka\Settings');
+        $form = new ConfigForm;
+        $form->init();
+        $form->setData($controller->params()->fromPost());
+        if (!$form->isValid()) {
+            $controller->messenger()->addErrors($form->getMessages());
+            return false;
+        }
+        $formData = $form->getData();
+        $settings->set('itemsetstree_item_sets_include_descendants', $formData['item_sets_include_descendants']);
+
+        return true;
     }
 
     public function onItemSetSave(Event $event)
@@ -172,6 +216,38 @@ class Module extends AbstractModule
                 'label' => 'Parent item set', // @translate
             ],
         ]);
+    }
+
+    public function onItemApiSearchPre (Event $event)
+    {
+        $request = $event->getParam('request');
+        $data = $request->getContent();
+        if (isset($data['item_set_id'])) {
+            $api = $this->getServiceLocator()->get('Omeka\ApiManager');
+            $itemSetsTree = $this->getServiceLocator()->get('ItemSetsTree');
+
+            $itemSetIds = $data['item_set_id'];
+            if (!is_array($itemSetIds)) {
+                $itemSetIds = [$itemSetIds];
+            }
+
+            $allItemSets = [];
+
+            foreach ($itemSetIds as $itemSetId) {
+                $itemSet = $api->read('item_sets', $data['item_set_id'])->getContent();
+                $allItemSets[$itemSet->id()] = $itemSet;
+
+                $descendants = $itemSetsTree->getDescendants($itemSet);
+                foreach ($descendants as $descendant) {
+                    $allItemSets[$descendant->id()] = $descendant;
+                }
+            }
+
+            $allItemSetsIds = array_keys($allItemSets);
+            $data['item_set_id'] = $allItemSetsIds;
+
+            $request->setContent($data);
+        }
     }
 
     public function onSolrValueExtractorFields (Event $event) {

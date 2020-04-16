@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Integration with Solr module
+- Add ability to display items of descendant item sets
 
 ## [0.1.0] - 2020-04-07
 

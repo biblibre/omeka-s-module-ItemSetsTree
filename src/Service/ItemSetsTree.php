@@ -86,4 +86,29 @@ class ItemSetsTree
 
         return $ancestors;
     }
+
+    public function getChildren(ItemSetRepresentation $itemSet)
+    {
+        $itemSetsTreeEdges = $this->api->search('item_sets_tree_edges', [
+            'parent_item_set_id' => $itemSet->id(),
+        ])->getContent();
+
+        $childrenItemSets = array_map(function ($itemSetsTreeEdge) {
+            return $itemSetsTreeEdge->itemSet();
+        }, $itemSetsTreeEdges);
+
+        return $childrenItemSets;
+    }
+
+    public function getDescendants(ItemSetRepresentation $itemSet)
+    {
+        $descendants = [];
+        $children = $this->getChildren($itemSet);
+        while ($child = array_shift($children)) {
+            $descendants[] = $child;
+            $children = array_merge($children, $this->getChildren($child));
+        }
+
+        return $descendants;
+    }
 }
