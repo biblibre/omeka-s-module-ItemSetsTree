@@ -2,21 +2,45 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ItemSetsTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 14:45+0000\n"
-"PO-Revision-Date: 2020-04-06 14:49+0000\n"
-"Last-Translator:  <julian.maurice@biblibre.com>\n"
+"POT-Creation-Date: 2020-05-07 15:54+0200\n"
+"PO-Revision-Date: 2020-05-07 15:57+0200\n"
+"Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.2.1\n"
 
-#: view/item-sets-tree/admin/index/index.phtml:1
+#: Module.php:206 view/item-sets-tree/admin/index/index.phtml:1
 #: view/item-sets-tree/site/index/index.phtml:1
 msgid "Item Sets Tree"
 msgstr "Hiérarchie des collections"
 
+#: view/item-sets-tree/item-set-details.phtml:2
 #: view/item-sets-tree/item-set-fieldset.phtml:4
 msgid "Parent item set"
 msgstr "Collection parente"
+
+#: view/item-sets-tree/item-set-details.phtml:8
+msgid "This item set has no parent"
+msgstr "Cette collection n'a pas de parente"
+
+#: Module.php:282
+msgid "All item sets (including ancestors) internal identifiers"
+msgstr ""
+"Identifiants internes de toutes les collections (y compris les "
+"ancêtres)"
+
+#: src/Form/ConfigForm.php:14
+msgid "Item sets include descendants"
+msgstr "Les collections incluent les descendantes"
+
+#: src/Form/ConfigForm.php:15
+msgid ""
+"If enabled, displaying items of an item set will also display items of "
+"descendant item sets"
+msgstr ""
+"Si activé, afficher les contenus d'une collection affichera aussi les "
+"contenus des collections descendantes"

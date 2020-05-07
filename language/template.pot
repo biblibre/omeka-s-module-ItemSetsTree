@@ -1,8 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ItemSetsTree\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-06 14:45+0000\n"
+"POT-Creation-Date: 2020-05-07 15:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,11 +17,30 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: view/item-sets-tree/admin/index/index.phtml:1
+#: Module.php:206 view/item-sets-tree/admin/index/index.phtml:1
 #: view/item-sets-tree/site/index/index.phtml:1
 msgid "Item Sets Tree"
 msgstr ""
 
+#: view/item-sets-tree/item-set-details.phtml:2
 #: view/item-sets-tree/item-set-fieldset.phtml:4
 msgid "Parent item set"
+msgstr ""
+
+#: view/item-sets-tree/item-set-details.phtml:8
+msgid "This item set has no parent"
+msgstr ""
+
+#: Module.php:282
+msgid "All item sets (including ancestors) internal identifiers"
+msgstr ""
+
+#: src/Form/ConfigForm.php:14
+msgid "Item sets include descendants"
+msgstr ""
+
+#: src/Form/ConfigForm.php:15
+msgid ""
+"If enabled, displaying items of an item set will also display items of "
+"descendant item sets"
 msgstr ""
