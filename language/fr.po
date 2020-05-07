@@ -25,7 +25,7 @@ msgstr "Collection parente"
 
 #: view/item-sets-tree/item-set-details.phtml:8
 msgid "This item set has no parent"
-msgstr "Cette collection n'a pas de parente"
+msgstr "Cette collection n'a pas de collection parente"
 
 #: Module.php:282
 msgid "All item sets (including ancestors) internal identifiers"
