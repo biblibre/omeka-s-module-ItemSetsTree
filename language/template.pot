@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-07 15:54+0200\n"
+"POT-Creation-Date: 2020-05-13 11:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgid "Parent item set"
 msgstr ""
 
 #: view/item-sets-tree/item-set-details.phtml:8
-msgid "This item set has no parent"
+msgid "This item set has no parent item set"
 msgstr ""
 
 #: Module.php:282

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ItemSetsTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-07 15:54+0200\n"
-"PO-Revision-Date: 2020-05-07 15:57+0200\n"
+"POT-Creation-Date: 2020-05-13 11:35+0200\n"
+"PO-Revision-Date: 2020-05-13 11:36+0200\n"
 "Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -24,14 +24,13 @@ msgid "Parent item set"
 msgstr "Collection parente"
 
 #: view/item-sets-tree/item-set-details.phtml:8
-msgid "This item set has no parent"
+msgid "This item set has no parent item set"
 msgstr "Cette collection n'a pas de collection parente"
 
 #: Module.php:282
 msgid "All item sets (including ancestors) internal identifiers"
 msgstr ""
-"Identifiants internes de toutes les collections (y compris les "
-"ancêtres)"
+"Identifiants internes de toutes les collections (y compris les ancêtres)"
 
 #: src/Form/ConfigForm.php:14
 msgid "Item sets include descendants"
