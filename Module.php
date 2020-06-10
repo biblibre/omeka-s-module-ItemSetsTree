@@ -178,7 +178,7 @@ class Module extends AbstractModule
         $entityManager = $services->get('Omeka\EntityManager');
 
         $data = $event->getParam('request')->getContent();
-        if ($data['item-sets-tree-parent-id']) {
+        if (!empty($data['item-sets-tree-parent-id'])) {
             $parentItemSet = $entityManager->find('Omeka\Entity\ItemSet', $data['item-sets-tree-parent-id']);
         }
 
@@ -186,13 +186,13 @@ class Module extends AbstractModule
         $itemSetsTreeEdges = $api->search('item_sets_tree_edges', ['item_set_id' => $itemSet->getId()])->getContent();
         if (!empty($itemSetsTreeEdges)) {
             $itemSetsTreeEdge = reset($itemSetsTreeEdges);
-            if ($parentItemSet) {
+            if (isset($parentItemSet)) {
                 $api->update('item_sets_tree_edges', $itemSetsTreeEdge->id(), ['o:item_set' => $itemSet, 'o:parent_item_set' => $parentItemSet]);
             } else {
                 $api->delete('item_sets_tree_edges', $itemSetsTreeEdge->id());
             }
         } else {
-            if ($parentItemSet) {
+            if (isset($parentItemSet)) {
                 $api->create('item_sets_tree_edges', ['o:item_set' => $itemSet, 'o:parent_item_set' => $parentItemSet]);
             }
         }
