@@ -35,7 +35,7 @@ class ItemSetsTree
 
     public function getItemSetsTree()
     {
-        $itemSets = $this->api->search('item_sets')->getContent();
+        $itemSets = $this->api->search('item_sets', ['sort_by' => 'title', 'sort_order' => 'asc'])->getContent();
         $itemSetsTreeEdges = $this->api->search('item_sets_tree_edges')->getContent();
 
         $parentMap = [];
