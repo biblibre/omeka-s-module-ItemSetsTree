@@ -256,11 +256,12 @@ class Module extends AbstractModule
             if (!is_array($itemSetIds)) {
                 $itemSetIds = [$itemSetIds];
             }
+            $itemSetIds = array_filter($itemSetIds);
 
             $allItemSets = [];
 
             foreach ($itemSetIds as $itemSetId) {
-                $itemSet = $api->read('item_sets', $data['item_set_id'])->getContent();
+                $itemSet = $api->read('item_sets', $itemSetId)->getContent();
                 $allItemSets[$itemSet->id()] = $itemSet;
 
                 $descendants = $itemSetsTree->getDescendants($itemSet);
