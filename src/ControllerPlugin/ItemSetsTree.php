@@ -22,7 +22,7 @@
 namespace ItemSetsTree\ControllerPlugin;
 
 use ItemSetsTree\Service\ItemSetsTree as ItemSetsTreeService;
-use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 
 class ItemSetsTree extends AbstractPlugin
 {

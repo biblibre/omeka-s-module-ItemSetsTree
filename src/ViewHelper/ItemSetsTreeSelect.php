@@ -22,10 +22,10 @@
 namespace ItemSetsTree\ViewHelper;
 
 use ItemSetsTree\Service\ItemSetsTree;
-use Zend\Form\Element\Select;
-use Zend\Form\Factory;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\Form\Element\Select;
+use Laminas\Form\Factory;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View\Helper\AbstractHelper;
 
 class ItemSetsTreeSelect extends AbstractHelper
 {

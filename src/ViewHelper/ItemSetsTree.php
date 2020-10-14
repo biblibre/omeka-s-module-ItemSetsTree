@@ -23,7 +23,7 @@ namespace ItemSetsTree\ViewHelper;
 
 use ItemSetsTree\Service\ItemSetsTree as ItemSetsTreeService;
 use Omeka\Api\Representation\ItemSetRepresentation;
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class ItemSetsTree extends AbstractHelper
 {

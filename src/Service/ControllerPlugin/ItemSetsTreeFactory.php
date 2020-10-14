@@ -23,7 +23,7 @@ namespace ItemSetsTree\Service\ControllerPlugin;
 
 use Interop\Container\ContainerInterface;
 use ItemSetsTree\ControllerPlugin\ItemSetsTree;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ItemSetsTreeFactory implements FactoryInterface
 {
