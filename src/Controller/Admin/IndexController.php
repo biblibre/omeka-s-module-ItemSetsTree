@@ -28,9 +28,5 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $view = new ViewModel;
-        $view->setVariable('itemSetsTree', $this->itemSetsTree()->getItemSetsTree());
-
-        return $view;
     }
 }

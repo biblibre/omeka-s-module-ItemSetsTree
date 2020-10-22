@@ -34,6 +34,11 @@ class ItemSetsTree extends AbstractHelper
         $this->itemSetsTree = $itemSetsTree;
     }
 
+    public function getItemSetsTree(int $maxDepth = null)
+    {
+        return $this->itemSetsTree->getItemSetsTree($maxDepth);
+    }
+
     public function getParent(ItemSetRepresentation $itemSet)
     {
         return $this->itemSetsTree->getParent($itemSet);
