@@ -105,15 +105,29 @@ class ItemSetsTree
 
     public function getChildren(ItemSetRepresentation $itemSet)
     {
-        $itemSetsTreeEdges = $this->api->search('item_sets_tree_edges', [
-            'parent_item_set_id' => $itemSet->id(),
-        ])->getContent();
+        $itemSetAdapter = $this->apiAdapters->get('item_sets');
+        $subqb = $this->em->createQueryBuilder();
+        $subqb->select('IDENTITY(edge.itemSet)')
+            ->from('ItemSetsTree\Entity\ItemSetsTreeEdge', 'edge')
+            ->where('edge.parentItemSet = :itemSetId');
 
-        $childrenItemSets = array_map(function ($itemSetsTreeEdge) {
-            return $itemSetsTreeEdge->itemSet();
-        }, $itemSetsTreeEdges);
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('itemset')
+            ->from('Omeka\Entity\ItemSet', 'itemset')
+            ->where($qb->expr()->in('itemset.id', $subqb->getDQL()))
+            ->setParameter('itemSetId', $itemSet->id());
 
-        return $childrenItemSets;
+        $qb->addOrderBy('itemset.title');
+        $qb->groupBy('itemset.id');
+
+        $query = $qb->getQuery();
+        $itemSets = $query->getResult();
+
+        $itemSetsRepresentations = array_map(function ($itemSet) use ($itemSetAdapter) {
+            return new ItemSetRepresentation($itemSet, $itemSetAdapter);
+        }, $itemSets);
+
+        return $itemSetsRepresentations;
     }
 
     public function getDescendants(ItemSetRepresentation $itemSet)
