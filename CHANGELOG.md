@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added ability to to display the tree only up to a fixed depth
 
+### Fixed
+
+- Do not retrieve item sets that user has no permission to see
+
 ## [0.2.0] - 2020-07-15
 
 ### Added
