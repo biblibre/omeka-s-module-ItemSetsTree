@@ -34,18 +34,51 @@ class ItemSetsTree extends AbstractHelper
         $this->itemSetsTree = $itemSetsTree;
     }
 
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation[]
+     */
+    public function getRootItemSets()
+    {
+        return $this->itemSetsTree->getRootItemSets();
+    }
+
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation[]
+     */
     public function getItemSetsTree(int $maxDepth = null)
     {
         return $this->itemSetsTree->getItemSetsTree($maxDepth);
     }
 
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation
+     */
     public function getParent(ItemSetRepresentation $itemSet)
     {
         return $this->itemSetsTree->getParent($itemSet);
     }
 
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation[]
+     */
     public function getAncestors(ItemSetRepresentation $itemSet)
     {
         return $this->itemSetsTree->getAncestors($itemSet);
+    }
+
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation[]
+     */
+    public function getChildren(ItemSetRepresentation $itemSet)
+    {
+        return $this->itemSetsTree->getChildren($itemSet);
+    }
+
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation[]
+     */
+    public function getDescendants(ItemSetRepresentation $itemSet)
+    {
+        return $this->itemSetsTree->getDescendants($itemSet);
     }
 }
