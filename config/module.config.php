@@ -33,6 +33,8 @@ return [
                 'label' => 'Item Sets Tree', // @translate
                 'class' => 'item-sets-tree',
                 'route' => 'admin/item-sets-tree',
+                'resource' => 'ItemSetsTree\Controller\Admin\Index',
+                'privilege' => 'index',
             ],
         ],
     ],
