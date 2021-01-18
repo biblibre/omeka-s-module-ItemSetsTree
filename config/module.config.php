@@ -117,6 +117,11 @@ return [
         'block_settings' => [
             'itemSetsTree' => [
                 'heading' => '',
+                'display' => [
+                    // 'count',
+                    // 'description',
+                    // 'link_empty',
+                ],
                 'template' => '',
             ],
         ],

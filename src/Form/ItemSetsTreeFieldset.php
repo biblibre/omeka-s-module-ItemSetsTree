@@ -20,6 +20,18 @@ class ItemSetsTreeFieldset extends Fieldset
                 'attributes' => [
                     'id' => 'item-sets-tree-heading',
                 ],
+            ])
+            ->add([
+                'name' => 'o:block[__blockIndex__][o:data][display]',
+                'type' => Element\MultiCheckbox::class,
+                'options' => [
+                    'label' => 'Display', // @translate
+                    'value_options' => [
+                        'count' => 'Count', // @translate
+                        'description' => 'Description', // @translate
+                        'link_empty' => 'Link for empty item set', // @translate
+                    ],
+                ],
             ]);
 
         if (class_exists('BlockPlus\Form\Element\TemplateSelect')) {
