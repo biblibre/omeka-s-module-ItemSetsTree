@@ -1,0 +1,18 @@
+<?php
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var string $heading
+ */
+
+$escape = $this->plugin('escapeHtml');
+?>
+
+<div class="block-item-sets-tree">
+    <?php if ($heading): ?>
+    <h2><?= $escape($heading) ?></h2>
+    <?php endif; ?>
+    <?php
+    $itemSetsTree = $this->itemSetsTree()->getItemSetsTree();
+    echo $this->partial('item-sets-tree/item-sets-tree', ['itemSetsTree' => $itemSetsTree]);
+    ?>
+</div>

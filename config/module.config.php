@@ -103,4 +103,22 @@ return [
             dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view',
         ],
     ],
+    'form_elements' => [
+        'invokables' => [
+            Form\ItemSetsTreeFieldset::class => Form\ItemSetsTreeFieldset::class,
+        ],
+    ],
+    'block_layouts' => [
+        'invokables' => [
+            'itemSetsTree' => Site\BlockLayout\ItemSetsTree::class,
+        ],
+    ],
+    'itemsetstree' => [
+        'block_settings' => [
+            'itemSetsTree' => [
+                'heading' => '',
+                'template' => '',
+            ],
+        ],
+    ],
 ];
