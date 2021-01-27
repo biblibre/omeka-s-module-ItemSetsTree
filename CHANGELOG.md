@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added missing functions in view helper (getRootItemSets, getChildren,
   getDescendants)
 - Added ability to display the tree only up to a fixed depth
+- Added a page block layout
 
 ### Fixed
 
