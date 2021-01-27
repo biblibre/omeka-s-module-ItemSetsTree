@@ -1,8 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace ItemSetsTree\Site\BlockLayout;
 
 use Laminas\View\Renderer\PhpRenderer;
+use Laminas\Form\Element\Checkbox;
+use Laminas\Form\Element\Text;
+use Laminas\Form\Form;
 use Omeka\Api\Representation\SitePageBlockRepresentation;
 use Omeka\Api\Representation\SitePageRepresentation;
 use Omeka\Api\Representation\SiteRepresentation;
@@ -10,11 +13,6 @@ use Omeka\Site\BlockLayout\AbstractBlockLayout;
 
 class ItemSetsTree extends AbstractBlockLayout
 {
-    /**
-     * The default partial view script.
-     */
-    const PARTIAL_NAME = 'common/block-layout/item-sets-tree';
-
     public function getLabel()
     {
         return 'Item Sets Tree'; // @translate
@@ -26,32 +24,69 @@ class ItemSetsTree extends AbstractBlockLayout
         SitePageRepresentation $page = null,
         SitePageBlockRepresentation $block = null
     ) {
-        // Factory is not used to make rendering simpler.
-        $services = $site->getServiceLocator();
-        $formElementManager = $services->get('FormElementManager');
-        $defaultSettings = $services->get('Config')['itemsetstree']['block_settings']['itemSetsTree'];
-        $blockFieldset = \ItemSetsTree\Form\ItemSetsTreeFieldset::class;
+        $defaults = [
+            'heading' => '',
+            'displayCount' => false,
+            'displayDescription' => false,
+            'linkEmpty' => true,
+        ];
 
-        $data = $block ? $block->data() + $defaultSettings : $defaultSettings;
+        $data = $block ? $block->data() + $defaults : $defaults;
 
-        $dataForm = [];
-        foreach ($data as $key => $value) {
-            $dataForm['o:block[__blockIndex__][o:data][' . $key . ']'] = $value;
-        }
+        $form = new Form();
+        $form->add([
+            'name' => 'o:block[__blockIndex__][o:data][heading]',
+            'type' => Text::class,
+            'options' => [
+                'label' => 'Block title', // @translate
+            ],
+            'attributes' => [
+                'id' => 'item-sets-tree-heading',
+            ],
+        ]);
+        $form->add([
+            'name' => 'o:block[__blockIndex__][o:data][displayCount]',
+            'type' => Checkbox::class,
+            'options' => [
+                'label' => 'Display items count', // @translate
+            ],
+            'attributes' => [
+                'id' => 'item-sets-tree-display-count',
+            ],
+        ]);
+        $form->add([
+            'name' => 'o:block[__blockIndex__][o:data][displayDescription]',
+            'type' => Checkbox::class,
+            'options' => [
+                'label' => 'Display description', // @translate
+            ],
+            'attributes' => [
+                'id' => 'item-sets-tree-display-description',
+            ],
+        ]);
+        $form->add([
+            'name' => 'o:block[__blockIndex__][o:data][linkEmpty]',
+            'type' => Checkbox::class,
+            'options' => [
+                'label' => 'Link for empty item sets', // @translate
+            ],
+            'attributes' => [
+                'id' => 'item-sets-tree-link-empty',
+            ],
+        ]);
 
-        $fieldset = $formElementManager->get($blockFieldset);
-        $fieldset->populateValues($dataForm);
+        $form->setData([
+            'o:block[__blockIndex__][o:data][heading]' => $data['heading'],
+            'o:block[__blockIndex__][o:data][displayCount]' => $data['displayCount'],
+            'o:block[__blockIndex__][o:data][displayDescription]' => $data['displayDescription'],
+            'o:block[__blockIndex__][o:data][linkEmpty]' => $data['linkEmpty'],
+        ]);
 
-        return $view->formCollection($fieldset, false);
+        return $view->formCollection($form);
     }
 
     public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
     {
-        $data = $block->data();
-        $template = empty($data['template']) ? self::PARTIAL_NAME : $data['template'];
-        unset($data['template']);
-        return $view->resolver($template)
-            ? $view->partial($template, $data)
-            : $view->partial(self::PARTIAL_NAME, $data);
+        return $view->partial('common/block-layout/item-sets-tree', $block->data());
     }
 }

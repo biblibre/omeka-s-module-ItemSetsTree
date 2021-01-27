@@ -8,6 +8,11 @@ return [
             'item_sets_tree_edges' => Api\Adapter\ItemSetsTreeEdgeAdapter::class,
         ]
     ],
+    'block_layouts' => [
+        'invokables' => [
+            'itemSetsTree' => Site\BlockLayout\ItemSetsTree::class,
+        ],
+    ],
     'controller_plugins' => [
         'factories' => [
             'itemSetsTree' => Service\ControllerPlugin\ItemSetsTreeFactory::class,
@@ -101,29 +106,6 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             dirname(__DIR__) . DIRECTORY_SEPARATOR . 'view',
-        ],
-    ],
-    'form_elements' => [
-        'invokables' => [
-            Form\ItemSetsTreeFieldset::class => Form\ItemSetsTreeFieldset::class,
-        ],
-    ],
-    'block_layouts' => [
-        'invokables' => [
-            'itemSetsTree' => Site\BlockLayout\ItemSetsTree::class,
-        ],
-    ],
-    'itemsetstree' => [
-        'block_settings' => [
-            'itemSetsTree' => [
-                'heading' => '',
-                'display' => [
-                    // 'count',
-                    // 'description',
-                    // 'link_empty',
-                ],
-                'template' => '',
-            ],
         ],
     ],
 ];

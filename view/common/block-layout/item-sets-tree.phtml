@@ -1,50 +1,12 @@
-<?php
-/**
- * @var \Laminas\View\Renderer\PhpRenderer $this
- * @var string $heading
- * @var array $display
- */
-
-$escape = $this->plugin('escapeHtml');
-$hyperlink = $this->plugin('hyperlink');
-
-$displayTree = null;
-$displayCount = in_array('count', $display);
-$displayDescription = in_array('description', $display);
-$displayLinkEmpty = in_array('link_empty', $display);
-
-$itemSetsTree = $this->itemSetsTree()->getItemSetsTree();
-?>
-
-<?php
-$displayTree = function (?array $tree = []) use (&$displayTree, $hyperlink, $escape, $displayCount, $displayDescription, $displayLinkEmpty): void {
-    if (empty($tree)) return;
-    ?>
-    <ul>
-    <?php foreach ($tree as $node):
-    /** @var \Omeka\Api\Representation\ItemSetRepresentation $itemSet */
-    $itemSet = $node['itemSet'];
-    $count = $itemSet->itemCount();
-    ?>
-        <li>
-            <?= ($displayLinkEmpty || $count)
-                ? $hyperlink($node['itemSet']->displayTitle(), $node['itemSet']->siteUrl())
-                : $escape($node['itemSet']->displayTitle()) ?>
-            <?php if ($displayCount && $count): ?>
-            (<span class="count"><?= $count ?></span>)
-            <?php endif; ?>
-            <?php if ($displayDescription && $description = $itemSet->displayDescription()): ?>
-            <span class="description"><?= $description ?></span>
-            <?php endif; ?>
-            <?= $displayTree($node['children']) ?>
-        </li>
-    <?php endforeach; ?>
-    </ul>
-<?php }; ?>
-
 <div class="block-item-sets-tree">
     <?php if ($heading): ?>
-    <h2><?= $escape($heading) ?></h2>
+        <h2><?= $this->escapeHtml($heading) ?></h2>
     <?php endif; ?>
-    <?= $displayTree($itemSetsTree) ?>
+
+    <?php echo $this->partial('item-sets-tree/item-sets-tree', [
+        'itemSetsTree' => $this->itemSetsTree()->getItemSetsTree(),
+        'displayCount' => $displayCount,
+        'displayDescription' => $displayDescription,
+        'linkEmpty' => $linkEmpty,
+    ]); ?>
 </div>
