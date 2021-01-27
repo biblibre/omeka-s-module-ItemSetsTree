@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-13 11:35+0200\n"
+"POT-Creation-Date: 2021-01-27 09:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "This item set has no parent item set"
 msgstr ""
 
-#: Module.php:282
+#: Module.php:283
 msgid "All item sets (including ancestors) internal identifiers"
 msgstr ""
 
@@ -43,4 +43,20 @@ msgstr ""
 msgid ""
 "If enabled, displaying items of an item set will also display items of "
 "descendant item sets"
+msgstr ""
+
+#: src/Site/BlockLayout/ItemSetsTree.php:41
+msgid "Block title"
+msgstr ""
+
+#: src/Site/BlockLayout/ItemSetsTree.php:51
+msgid "Display items count"
+msgstr ""
+
+#: src/Site/BlockLayout/ItemSetsTree.php:61
+msgid "Display description"
+msgstr ""
+
+#: src/Site/BlockLayout/ItemSetsTree.php:71
+msgid "Link for empty item sets"
 msgstr ""

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ItemSetsTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-13 11:35+0200\n"
-"PO-Revision-Date: 2020-05-13 11:36+0200\n"
+"POT-Creation-Date: 2021-01-27 09:36+0000\n"
+"PO-Revision-Date: 2021-01-27 10:44+0100\n"
 "Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -27,7 +27,7 @@ msgstr "Collection parente"
 msgid "This item set has no parent item set"
 msgstr "Cette collection n'a pas de collection parente"
 
-#: Module.php:282
+#: Module.php:283
 msgid "All item sets (including ancestors) internal identifiers"
 msgstr ""
 "Identifiants internes de toutes les collections (y compris les ancêtres)"
@@ -43,3 +43,19 @@ msgid ""
 msgstr ""
 "Si activé, afficher les contenus d'une collection affichera aussi les "
 "contenus des collections descendantes"
+
+#: src/Site/BlockLayout/ItemSetsTree.php:41
+msgid "Block title"
+msgstr "Titre du bloc"
+
+#: src/Site/BlockLayout/ItemSetsTree.php:51
+msgid "Display items count"
+msgstr "Afficher le nombre de contenus"
+
+#: src/Site/BlockLayout/ItemSetsTree.php:61
+msgid "Display description"
+msgstr "Afficher la description"
+
+#: src/Site/BlockLayout/ItemSetsTree.php:71
+msgid "Link for empty item sets"
+msgstr "Lien pour les collections vides"
