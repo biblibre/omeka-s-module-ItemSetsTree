@@ -1,9 +1,37 @@
+<?php
+    $displayCount = $displayCount ?? false;
+    $displayDescription = $displayDescription ?? false;
+    $linkEmpty = $linkEmpty ?? true;
+?>
 <?php if (!empty($itemSetsTree)): ?>
     <ul>
         <?php foreach ($itemSetsTree as $itemSetsTreeNode): ?>
+            <?php $itemSet = $itemSetsTreeNode['itemSet']; ?>
+            <?php if ($displayCount || !$linkEmpty): ?>
+                <?php $itemCount = $itemSet->itemCount(); ?>
+            <?php endif; ?>
+
             <li>
-                <a href="<?php echo $itemSetsTreeNode['itemSet']->url(); ?>"><?php echo $this->escapeHtml($itemSetsTreeNode['itemSet']->displayTitle()); ?></a>
-                <?php echo $this->partial('item-sets-tree/item-sets-tree', ['itemSetsTree' => $itemSetsTreeNode['children']]); ?>
+                <?php if (!$linkEmpty && $itemCount === 0): ?>
+                    <?php echo $this->escapeHtml($itemSet->displayTitle()); ?>
+                <?php else: ?>
+                    <?php echo $this->hyperlink($itemSet->displayTitle(), $itemSet->url()); ?>
+                <?php endif; ?>
+
+                <?php if ($displayCount): ?>
+                    (<span class="count"><?php echo $itemCount; ?></span>)
+                <?php endif; ?>
+
+                <?php if ($displayDescription && $description = $itemSet->displayDescription()): ?>
+                    <span class="description"><?php echo $this->escapeHtml($description); ?></span>
+                <?php endif; ?>
+
+                <?php echo $this->partial('item-sets-tree/item-sets-tree', [
+                    'itemSetsTree' => $itemSetsTreeNode['children'],
+                    'displayCount' => $displayCount,
+                    'displayDescription' => $displayDescription,
+                    'linkEmpty' => $linkEmpty,
+                ]); ?>
             </li>
         <?php endforeach; ?>
     </ul>

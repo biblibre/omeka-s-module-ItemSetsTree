@@ -8,6 +8,11 @@ return [
             'item_sets_tree_edges' => Api\Adapter\ItemSetsTreeEdgeAdapter::class,
         ]
     ],
+    'block_layouts' => [
+        'invokables' => [
+            'itemSetsTree' => Site\BlockLayout\ItemSetsTree::class,
+        ],
+    ],
     'controller_plugins' => [
         'factories' => [
             'itemSetsTree' => Service\ControllerPlugin\ItemSetsTreeFactory::class,
