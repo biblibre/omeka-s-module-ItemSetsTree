@@ -39,7 +39,7 @@ class ItemSetsTreeSelect extends AbstractHelper
         $this->itemSetsTree = $itemSetsTree;
     }
 
-    public function __invoke(array $spec = [], $itemSetId = null)
+    public function __invoke(array $spec = [], $itemSetId = null, int $maxDepth = null)
     {
         $this->itemSetId = $itemSetId;
 
@@ -48,7 +48,7 @@ class ItemSetsTreeSelect extends AbstractHelper
             $spec['options']['empty_option'] = 'Select item set'; // @translate
         }
 
-        $itemSetsTree = $this->itemSetsTree->getItemSetsTree();
+        $itemSetsTree = $this->itemSetsTree->getItemSetsTree($maxDepth);
         $valueOptions = $this->getValueOptions($itemSetsTree);
         $spec['options']['value_options'] = $valueOptions;
 

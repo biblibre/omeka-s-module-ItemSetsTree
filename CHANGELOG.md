@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   getDescendants)
 - Added ability to display the tree only up to a fixed depth
 - Added a page block layout
+- Added parameter maxDepth to view helper itemSetsTreeSelect
 
 ### Fixed
 
