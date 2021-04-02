@@ -23,6 +23,7 @@ namespace ItemSetsTree\ControllerPlugin;
 
 use ItemSetsTree\Service\ItemSetsTree as ItemSetsTreeService;
 use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
+use Omeka\Api\Representation\ItemSetRepresentation;
 
 class ItemSetsTree extends AbstractPlugin
 {
@@ -36,5 +37,37 @@ class ItemSetsTree extends AbstractPlugin
     public function getItemSetsTree()
     {
         return $this->itemSetsTree->getItemSetsTree();
+    }
+
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation
+     */
+    public function getParent(ItemSetRepresentation $itemSet)
+    {
+        return $this->itemSetsTree->getParent($itemSet);
+    }
+
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation[]
+     */
+    public function getAncestors(ItemSetRepresentation $itemSet)
+    {
+        return $this->itemSetsTree->getAncestors($itemSet);
+    }
+
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation[]
+     */
+    public function getChildren(ItemSetRepresentation $itemSet)
+    {
+        return $this->itemSetsTree->getChildren($itemSet);
+    }
+
+    /**
+     * @return \Omeka\Api\Representation\ItemSetRepresentation[]
+     */
+    public function getDescendants(ItemSetRepresentation $itemSet)
+    {
+        return $this->itemSetsTree->getDescendants($itemSet);
     }
 }
