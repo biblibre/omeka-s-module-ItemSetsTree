@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Do not retrieve item sets that user has no permission to see
+- Hide navigation entry to unauthorized users
 
 ## [0.3.0] - 2020-10-14
 
