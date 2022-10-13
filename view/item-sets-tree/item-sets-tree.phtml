@@ -11,7 +11,7 @@
                 <?php $itemCount = $itemSet->itemCount(); ?>
             <?php endif; ?>
 
-            <li>
+            <li data-item-set-id="<?php echo $itemSet->id(); ?>">
                 <?php if (!$linkEmpty && $itemCount === 0): ?>
                     <?php echo $this->escapeHtml($itemSet->displayTitle()); ?>
                 <?php else: ?>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-27 09:36+0000\n"
+"POT-Creation-Date: 2022-10-18 09:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Module.php:206 view/item-sets-tree/admin/index/index.phtml:1
+#: Module.php:216 view/item-sets-tree/admin/index/edit.phtml:3
+#: view/item-sets-tree/admin/index/index.phtml:1
 #: view/item-sets-tree/site/index/index.phtml:1
 msgid "Item Sets Tree"
 msgstr ""
@@ -31,18 +32,34 @@ msgstr ""
 msgid "This item set has no parent item set"
 msgstr ""
 
-#: Module.php:283
+#: Module.php:294
 msgid "All item sets (including ancestors) internal identifiers"
 msgstr ""
 
-#: src/Form/ConfigForm.php:14
+#: src/Form/ConfigForm.php:15
 msgid "Item sets include descendants"
 msgstr ""
 
-#: src/Form/ConfigForm.php:15
+#: src/Form/ConfigForm.php:16
 msgid ""
 "If enabled, displaying items of an item set will also display items of "
 "descendant item sets"
+msgstr ""
+
+#: src/Form/ConfigForm.php:30
+msgid "Sorting method"
+msgstr ""
+
+#: src/Form/ConfigForm.php:31
+msgid "Method used to sort item sets of the same level"
+msgstr ""
+
+#: src/Form/ConfigForm.php:33
+msgid "Do not sort"
+msgstr ""
+
+#: src/Form/ConfigForm.php:34
+msgid "Sort by title"
 msgstr ""
 
 #: src/Site/BlockLayout/ItemSetsTree.php:41
@@ -59,4 +76,8 @@ msgstr ""
 
 #: src/Site/BlockLayout/ItemSetsTree.php:71
 msgid "Link for empty item sets"
+msgstr ""
+
+#: src/Controller/Admin/IndexController.php:59
+msgid "Item sets tree successfully saved"
 msgstr ""

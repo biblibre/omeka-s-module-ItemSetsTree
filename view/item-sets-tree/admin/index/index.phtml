@@ -1,4 +1,8 @@
 <?php echo $this->pageTitle($this->translate('Item Sets Tree')); ?>
 
+<div id="page-actions">
+    <?php echo $this->hyperlink($this->translate('Edit'), $this->url(null, ['action' => 'edit'], true), ['class' => 'button']); ?>
+</div>
+
 <?php $itemSetsTree = $this->itemSetsTree()->getItemSetsTree(); ?>
 <?php echo $this->partial('item-sets-tree/item-sets-tree', ['itemSetsTree' => $itemSetsTree]); ?>

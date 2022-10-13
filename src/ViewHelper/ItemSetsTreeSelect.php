@@ -58,7 +58,10 @@ class ItemSetsTreeSelect extends AbstractHelper
             $edges = $this->getView()->api()->search('item_sets_tree_edges', ['item_set_id' => $itemSetId])->getContent();
             $edge = reset($edges);
             if ($edge) {
-                $element->setValue($edge->parentItemSet()->id());
+                $parentItemSet = $edge->parentItemSet();
+                if ($parentItemSet) {
+                    $element->setValue($parentItemSet->id());
+                }
             }
         }
 

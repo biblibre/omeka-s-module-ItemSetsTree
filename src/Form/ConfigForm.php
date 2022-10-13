@@ -2,6 +2,7 @@
 namespace ItemSetsTree\Form;
 
 use Laminas\Form\Form;
+use Laminas\Form\Element\Select;
 
 class ConfigForm extends Form
 {
@@ -19,6 +20,19 @@ class ConfigForm extends Form
             ],
             'attributes' => [
                 'id' => 'item-sets-include-descendants',
+            ],
+        ]);
+
+        $this->add([
+            'type' => Select::class,
+            'name' => 'sorting_method',
+            'options' => [
+                'label' => 'Sorting method', // @translate
+                'info' => 'Method used to sort item sets of the same level', // @translate
+                'value_options' => [
+                    'none' => 'Do not sort', // @translate
+                    'title' => 'Sort by title', //@translate
+                ],
             ],
         ]);
     }

@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022, BibLibre
+# This file is distributed under the same license as the Item Sets Tree
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Item Sets Tree\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-13 12:18+0200\n"
+"PO-Revision-Date: 2022-10-13 12:27+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+"Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: ../../define-item-set-hierarchy.rst:2
+msgid "Define the item set hierarchy"
+msgstr "Définir la hiérarchie de collections"
+
+#: ../../define-item-set-hierarchy.rst:4
+msgid ""
+"To define the item set hierarchy, log in to the admin interface and "
+"click on ``Item Sets Tree`` in the left sidebar, under the ``Modules`` "
+"section."
+msgstr ""
+"Pour définir la hiérarchie de collections, connectez-vous à l'interface "
+"d'administration et cliquez sur ``Hiérarchie des collections`` dans la "
+"barre latérale gauche, sous la section ``Modules``."
+
+#: ../../define-item-set-hierarchy.rst:9
+msgid ""
+"The item sets tree will be shown (it will be flat if it's your first "
+"time using the module)"
+msgstr ""
+"L'arborescence des collections sera affichée (elle sera plate si c'est "
+"la première fois que vous utilisez ce module)"
+
+#: ../../define-item-set-hierarchy.rst:14
+msgid ""
+"Click on the ``Edit`` button in the top right corner of the page. You "
+"are now in \"edit\" mode."
+msgstr ""
+"Cliquez sur le bouton ``Modifier`` dans le coin supérieur droit de la "
+"page. Vous êtes maintenant en mode \"modification\"."
+
+#: ../../define-item-set-hierarchy.rst:19
+msgid ""
+"You can drag and drop item sets to organize them in the way you want. "
+"For instance:"
+msgstr ""
+"Vous pouvez glisser et déposer les collections pour les organiser comme "
+"vous voulez. Par exemple:"
+
+#: ../../define-item-set-hierarchy.rst:23
+msgid "Once you are done, click on the ``Save`` button."
+msgstr "Une fois que c'est fait, cliquez sur le bouton ``Enregistrer``."

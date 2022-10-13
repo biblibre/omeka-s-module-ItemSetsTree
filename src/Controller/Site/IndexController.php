@@ -22,7 +22,6 @@
 namespace ItemSetsTree\Controller\Site;
 
 use Laminas\Mvc\Controller\AbstractActionController;
-use Laminas\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {

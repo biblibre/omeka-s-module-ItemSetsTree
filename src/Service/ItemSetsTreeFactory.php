@@ -31,8 +31,9 @@ class ItemSetsTreeFactory implements FactoryInterface
         $api = $container->get('Omeka\ApiManager');
         $em = $container->get('Omeka\EntityManager');
         $apiAdapters = $container->get('Omeka\ApiAdapterManager');
+        $settings = $container->get('Omeka\Settings');
 
-        $itemSetsTree = new ItemSetsTree($api, $em, $apiAdapters);
+        $itemSetsTree = new ItemSetsTree($api, $em, $apiAdapters, $settings);
 
         return $itemSetsTree;
     }

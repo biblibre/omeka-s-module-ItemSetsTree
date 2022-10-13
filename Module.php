@@ -21,6 +21,7 @@
 
 namespace ItemSetsTree;
 
+use Composer\Semver\Comparator;
 use ItemSetsTree\Form\ConfigForm;
 use Omeka\Module\AbstractModule;
 use Omeka\Permissions\Acl;
@@ -41,9 +42,19 @@ class Module extends AbstractModule
     public function install(ServiceLocatorInterface $services)
     {
         $connection = $services->get('Omeka\Connection');
-        $connection->exec('CREATE TABLE item_sets_tree_edge (id INT AUTO_INCREMENT NOT NULL, item_set_id INT NOT NULL, parent_item_set_id INT NOT NULL, UNIQUE INDEX UNIQ_619BDFA3960278D7 (item_set_id), INDEX IDX_619BDFA3FD2E6AA7 (parent_item_set_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $connection->exec('CREATE TABLE item_sets_tree_edge (id INT AUTO_INCREMENT NOT NULL, item_set_id INT NOT NULL, parent_item_set_id INT DEFAULT NULL, `rank` INT NOT NULL, UNIQUE INDEX UNIQ_619BDFA3960278D7 (item_set_id), INDEX IDX_619BDFA3FD2E6AA7 (parent_item_set_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $connection->exec('ALTER TABLE item_sets_tree_edge ADD CONSTRAINT FK_619BDFA3960278D7 FOREIGN KEY (item_set_id) REFERENCES item_set (id) ON DELETE CASCADE');
         $connection->exec('ALTER TABLE item_sets_tree_edge ADD CONSTRAINT FK_619BDFA3FD2E6AA7 FOREIGN KEY (parent_item_set_id) REFERENCES item_set (id) ON DELETE CASCADE');
+    }
+
+    public function upgrade($oldVersion, $newVersion, ServiceLocatorInterface $services)
+    {
+        $connection = $services->get('Omeka\Connection');
+        if (Comparator::lessThan($oldVersion, '0.5.0')) {
+            $connection->exec('ALTER TABLE item_sets_tree_edge MODIFY COLUMN parent_item_set_id INT DEFAULT NULL');
+            $connection->exec('ALTER TABLE item_sets_tree_edge ADD COLUMN `rank` INT NOT NULL AFTER parent_item_set_id');
+            $connection->exec('INSERT IGNORE INTO item_sets_tree_edge (item_set_id, parent_item_set_id, `rank`) SELECT item_set.id, NULL, 0 FROM item_set');
+        }
     }
 
     public function uninstall(ServiceLocatorInterface $services)
@@ -145,11 +156,13 @@ class Module extends AbstractModule
     {
         $settings = $this->getServiceLocator()->get('Omeka\Settings');
         $item_sets_include_descendants = $settings->get('itemsetstree_item_sets_include_descendants', 0);
+        $sorting_method = $settings->get('itemsetstree_sorting_method', 'title');
 
         $form = new ConfigForm;
         $form->init();
         $form->setData([
             'item_sets_include_descendants' => $item_sets_include_descendants,
+            'sorting_method' => $sorting_method,
         ]);
 
         return $renderer->formCollection($form, false);
@@ -167,6 +180,7 @@ class Module extends AbstractModule
         }
         $formData = $form->getData();
         $settings->set('itemsetstree_item_sets_include_descendants', $formData['item_sets_include_descendants']);
+        $settings->set('itemsetstree_sorting_method', $formData['sorting_method']);
 
         return true;
     }
@@ -186,11 +200,7 @@ class Module extends AbstractModule
         $itemSetsTreeEdges = $api->search('item_sets_tree_edges', ['item_set_id' => $itemSet->getId()])->getContent();
         if (!empty($itemSetsTreeEdges)) {
             $itemSetsTreeEdge = reset($itemSetsTreeEdges);
-            if (isset($parentItemSet)) {
-                $api->update('item_sets_tree_edges', $itemSetsTreeEdge->id(), ['o:item_set' => $itemSet, 'o:parent_item_set' => $parentItemSet]);
-            } else {
-                $api->delete('item_sets_tree_edges', $itemSetsTreeEdge->id());
-            }
+            $api->update('item_sets_tree_edges', $itemSetsTreeEdge->id(), ['o:item_set' => $itemSet, 'o:parent_item_set' => $parentItemSet ?? null]);
         } else {
             if (isset($parentItemSet)) {
                 $api->create('item_sets_tree_edges', ['o:item_set' => $itemSet, 'o:parent_item_set' => $parentItemSet]);
@@ -244,7 +254,7 @@ class Module extends AbstractModule
         ]);
     }
 
-    public function onItemApiSearchPre (Event $event)
+    public function onItemApiSearchPre(Event $event)
     {
         $request = $event->getParam('request');
         $data = $request->getContent();
@@ -277,14 +287,16 @@ class Module extends AbstractModule
         }
     }
 
-    public function onSolrValueExtractorFields (Event $event) {
+    public function onSolrValueExtractorFields(Event $event)
+    {
         $fields = $event->getParam('fields');
         $fields['item_sets_tree']['label'] = 'Item Sets Tree'; // @translate
         $fields['item_sets_tree']['children']['ancestors']['label'] = 'All item sets (including ancestors) internal identifiers'; // @translate
         $event->setParam('fields', $fields);
     }
 
-    public function onSolrValueExtractorExtractValue (Event $event) {
+    public function onSolrValueExtractorExtractValue(Event $event)
+    {
         $item = $event->getTarget();
         $field = $event->getParam('field');
 

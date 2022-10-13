@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ItemSetsTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-27 09:36+0000\n"
-"PO-Revision-Date: 2021-01-27 10:44+0100\n"
+"POT-Creation-Date: 2022-10-18 09:48+0200\n"
+"PO-Revision-Date: 2022-10-18 09:48+0200\n"
 "Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -11,9 +11,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#: Module.php:206 view/item-sets-tree/admin/index/index.phtml:1
+#: Module.php:216 view/item-sets-tree/admin/index/edit.phtml:3
+#: view/item-sets-tree/admin/index/index.phtml:1
 #: view/item-sets-tree/site/index/index.phtml:1
 msgid "Item Sets Tree"
 msgstr "Hiérarchie des collections"
@@ -27,22 +28,38 @@ msgstr "Collection parente"
 msgid "This item set has no parent item set"
 msgstr "Cette collection n'a pas de collection parente"
 
-#: Module.php:283
+#: Module.php:294
 msgid "All item sets (including ancestors) internal identifiers"
 msgstr ""
 "Identifiants internes de toutes les collections (y compris les ancêtres)"
 
-#: src/Form/ConfigForm.php:14
+#: src/Form/ConfigForm.php:15
 msgid "Item sets include descendants"
 msgstr "Les collections incluent les descendantes"
 
-#: src/Form/ConfigForm.php:15
+#: src/Form/ConfigForm.php:16
 msgid ""
 "If enabled, displaying items of an item set will also display items of "
 "descendant item sets"
 msgstr ""
 "Si activé, afficher les contenus d'une collection affichera aussi les "
 "contenus des collections descendantes"
+
+#: src/Form/ConfigForm.php:30
+msgid "Sorting method"
+msgstr "Méthode de tri"
+
+#: src/Form/ConfigForm.php:31
+msgid "Method used to sort item sets of the same level"
+msgstr "Méthode utilisée pour trier les collections d'un même niveau"
+
+#: src/Form/ConfigForm.php:33
+msgid "Do not sort"
+msgstr "Ne pas trier"
+
+#: src/Form/ConfigForm.php:34
+msgid "Sort by title"
+msgstr "Trier par titre"
 
 #: src/Site/BlockLayout/ItemSetsTree.php:41
 msgid "Block title"
@@ -59,3 +76,7 @@ msgstr "Afficher la description"
 #: src/Site/BlockLayout/ItemSetsTree.php:71
 msgid "Link for empty item sets"
 msgstr "Lien pour les collections vides"
+
+#: src/Controller/Admin/IndexController.php:59
+msgid "Item sets tree successfully saved"
+msgstr "Hiérarchie des collections enregistrée avec succès"
