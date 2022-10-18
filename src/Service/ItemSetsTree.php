@@ -28,6 +28,7 @@ use Omeka\Api\Manager as ApiManager;
 use Omeka\Api\Representation\ItemSetRepresentation;
 use Omeka\Entity\ItemSet;
 use Omeka\Settings\Settings;
+use Omeka\Settings\SiteSettings;
 
 class ItemSetsTree
 {
@@ -35,18 +36,35 @@ class ItemSetsTree
     protected $em;
     protected $apiAdapters;
     protected $settings;
+    protected $siteSettings;
 
-    public function __construct(ApiManager $api, EntityManager $em, ApiAdapterManager $apiAdapters, Settings $settings)
+    public function setApiManager(ApiManager $api)
     {
         $this->api = $api;
+    }
+
+    public function setEntityManager(EntityManager $em)
+    {
         $this->em = $em;
+    }
+
+    public function setApiAdapterManager(ApiAdapterManager $apiAdapters)
+    {
         $this->apiAdapters = $apiAdapters;
+    }
+
+    public function setSettings(Settings $settings)
+    {
         $this->settings = $settings;
+    }
+
+    public function setSiteSettings(SiteSettings $siteSettings)
+    {
+        $this->siteSettings = $siteSettings;
     }
 
     public function getRootItemSets(array $options = [])
     {
-        $itemSetAdapter = $this->apiAdapters->get('item_sets');
         $qb = $this->em->createQueryBuilder();
         $qb->select('itemset')
             ->from('Omeka\Entity\ItemSet', 'itemset')
@@ -59,32 +77,120 @@ class ItemSetsTree
         } else {
             $qb->addOrderBy('itemset.title');
         }
+
         $qb->groupBy('itemset.id');
 
         $query = $qb->getQuery();
         $itemSets = $query->getResult();
 
-        $itemSetsRepresentations = array_map(function ($itemSet) use ($itemSetAdapter) {
-            return new ItemSetRepresentation($itemSet, $itemSetAdapter);
-        }, $itemSets);
+        $rootItemSets = [];
+        foreach ($itemSets as $itemSet) {
+            $rootItemSets[$itemSet->getId()] = $this->getItemSetRepresentation($itemSet);
+        }
 
-        return $itemSetsRepresentations;
+        return $rootItemSets;
+    }
+
+    public function getSiteItemSets($site_id, array $options = [])
+    {
+        $display = $options['display'] ?? $this->siteSettings->get('itemsetstree_display', 'all', $site_id);
+        if ($display === 'all') {
+            return $this->api->search('item_sets')->getContent();
+        }
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('itemset')
+            ->from('Omeka\Entity\ItemSet', 'itemset')
+            ->leftJoin('Omeka\Entity\SiteItemSet', 'siteItemSet', 'WITH', 'itemset = siteItemSet.itemSet')
+            ->where('siteItemSet.site = :site')
+            ->setParameter(':site', $site_id);
+
+        $qb->groupBy('itemset.id');
+
+        $query = $qb->getQuery();
+        $itemSets = $query->getResult();
+
+        $siteItemSets = [];
+        foreach ($itemSets as $itemSet) {
+            $siteItemSets[$itemSet->getId()] = $this->getItemSetRepresentation($itemSet);
+        }
+
+        if ($display === 'selected-and-descendants') {
+            $itemSetsToCheck = $siteItemSets;
+            while ($itemSet = array_shift($itemSetsToCheck)) {
+                $children = $this->getChildren($itemSet, $options);
+                foreach ($children as $child) {
+                    if (!array_key_exists($child->id(), $siteItemSets)) {
+                        $siteItemSets[$child->id()] = $child;
+                        $itemSetsToCheck[] = $child;
+                    }
+                }
+            }
+        }
+
+        return $siteItemSets;
     }
 
     public function getItemSetsTree(int $maxDepth = null, array $options = [])
     {
-        $rootItemSets = $this->getRootItemSets($options);
-
         $itemSetsTree = [];
-        foreach ($rootItemSets as $itemSet) {
-            $itemSetsTree[] = [
+        $itemSetsTreeFlat = [];
+
+        $site_id = $options['site_id'] ?? null;
+        if ($site_id) {
+            $itemSets = $this->getSiteItemSets($site_id, $options);
+        } else {
+            $itemSets = $this->api->search('item_sets')->getContent();
+        }
+
+        foreach ($itemSets as $itemSet) {
+            $itemSetsTreeFlat[$itemSet->id()] = [
                 'itemSet' => $itemSet,
                 'children' => [],
+                'parent' => null,
+                'rank' => 0,
             ];
         }
 
-        $currentDepth = 2;
-        $this->fetchItemSetsTreeChildren($itemSetsTree, $currentDepth, $maxDepth, $options);
+        foreach ($itemSetsTreeFlat as $id => &$itemSetsTreeNodeRef) {
+            $edge = $this->getItemSetsTreeEdge($itemSetsTreeNodeRef['itemSet']);
+            if ($edge) {
+                $itemSetsTreeNodeRef['rank'] = $edge->rank();
+
+                $parentItemSet = $edge->parentItemSet();
+                if ($parentItemSet && array_key_exists($parentItemSet->id(), $itemSetsTreeFlat)) {
+                    $itemSetsTreeNodeParent = & $itemSetsTreeFlat[$parentItemSet->id()];
+                    $itemSetsTreeNodeParent['children'][] = & $itemSetsTreeNodeRef;
+                    $itemSetsTreeNodeRef['parent'] = & $itemSetsTreeNodeParent;
+                }
+            }
+        }
+
+        $sorting_method = $options['sorting_method'] ?? $this->settings->get('itemsetstree_sorting_method', 'title');
+        if ($sorting_method === 'title') {
+            $sortingFunction = function ($a, $b) {
+                return strcmp($a['itemSet']->title(), $b['itemSet']->title());
+            };
+        } else {
+            $sortingFunction = function ($a, $b) {
+                return $a['rank'] - $b['rank'];
+            };
+        }
+
+        foreach ($itemSetsTreeFlat as &$itemSetsTreeNodeRef) {
+            usort($itemSetsTreeNodeRef['children'], $sortingFunction);
+        }
+
+        foreach ($itemSetsTreeFlat as $itemSetsTreeNode) {
+            if (is_null($itemSetsTreeNode['parent'])) {
+                $itemSetsTree[] = $itemSetsTreeNode;
+            }
+        }
+        usort($itemSetsTree, $sortingFunction);
+
+        if ($maxDepth) {
+            $this->truncateTree($itemSetsTree, $maxDepth);
+        }
 
         return $itemSetsTree;
     }
@@ -191,19 +297,30 @@ class ItemSetsTree
         $em->flush();
     }
 
-    protected function fetchItemSetsTreeChildren(&$itemSetsTree, $currentDepth, $maxDepth = null, array $options = [])
+    protected function getItemSetRepresentation(ItemSet $itemSet)
     {
-        if (isset($maxDepth) && $currentDepth > $maxDepth) {
+        $itemSetAdapter = $this->apiAdapters->get('item_sets');
+
+        return new ItemSetRepresentation($itemSet, $itemSetAdapter);
+    }
+
+    protected function getItemSetsTreeEdge(ItemSetRepresentation $itemSet)
+    {
+        $edges = $this->api->search('item_sets_tree_edges', ['item_set_id' => $itemSet->id()])->getContent();
+        return reset($edges);
+    }
+
+    protected function truncateTree(array &$tree, int $maxDepth, int $depth = 1)
+    {
+        if ($depth === $maxDepth) {
+            foreach ($tree as &$treeNode) {
+                $treeNode['children'] = [];
+            }
             return;
         }
 
-        foreach ($itemSetsTree as &$itemSetsTreeNode) {
-            $children = $this->getChildren($itemSetsTreeNode['itemSet'], $options);
-            $childrenNodes = array_map(function ($itemSet) {
-                return ['itemSet' => $itemSet, 'children' => []];
-            }, $children);
-            $itemSetsTreeNode['children'] = $childrenNodes;
-            $this->fetchItemSetsTreeChildren($itemSetsTreeNode['children'], $currentDepth + 1, $maxDepth, $options);
+        foreach ($tree as &$treeNode) {
+            $this->truncateTree($treeNode['children'], $maxDepth, $depth + 1);
         }
     }
 }

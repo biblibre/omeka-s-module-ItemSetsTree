@@ -28,12 +28,12 @@ class ItemSetsTreeFactory implements FactoryInterface
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $api = $container->get('Omeka\ApiManager');
-        $em = $container->get('Omeka\EntityManager');
-        $apiAdapters = $container->get('Omeka\ApiAdapterManager');
-        $settings = $container->get('Omeka\Settings');
-
-        $itemSetsTree = new ItemSetsTree($api, $em, $apiAdapters, $settings);
+        $itemSetsTree = new ItemSetsTree();
+        $itemSetsTree->setApiManager($container->get('Omeka\ApiManager'));
+        $itemSetsTree->setEntityManager($container->get('Omeka\EntityManager'));
+        $itemSetsTree->setApiAdapterManager($container->get('Omeka\ApiAdapterManager'));
+        $itemSetsTree->setSettings($container->get('Omeka\Settings'));
+        $itemSetsTree->setSiteSettings($container->get('Omeka\Settings\Site'));
 
         return $itemSetsTree;
     }

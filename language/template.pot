@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 09:48+0200\n"
+"POT-Creation-Date: 2022-10-20 09:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Module.php:216 view/item-sets-tree/admin/index/edit.phtml:3
+#: Module.php:223 view/item-sets-tree/admin/index/edit.phtml:3
 #: view/item-sets-tree/admin/index/index.phtml:1
 #: view/item-sets-tree/site/index/index.phtml:1
 msgid "Item Sets Tree"
@@ -32,7 +32,7 @@ msgstr ""
 msgid "This item set has no parent item set"
 msgstr ""
 
-#: Module.php:294
+#: Module.php:316
 msgid "All item sets (including ancestors) internal identifiers"
 msgstr ""
 
@@ -60,6 +60,29 @@ msgstr ""
 
 #: src/Form/ConfigForm.php:34
 msgid "Sort by title"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:18
+msgid "Display"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:19
+msgid "Choose which item sets to display in the tree"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:21
+msgid ""
+"Display all item sets without considering what is selected in the Resources "
+"tab"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:22
+msgid "Display only item sets selected in the Resources tab"
+msgstr ""
+
+#: src/Form/SiteSettingsFieldset.php:23
+msgid ""
+"Display only item sets selected in the Resources tab and their descendants"
 msgstr ""
 
 #: src/Site/BlockLayout/ItemSetsTree.php:41

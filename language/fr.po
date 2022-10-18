@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ItemSetsTree\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 09:48+0200\n"
-"PO-Revision-Date: 2022-10-18 09:48+0200\n"
+"POT-Creation-Date: 2022-10-20 09:36+0200\n"
+"PO-Revision-Date: 2022-10-20 09:40+0200\n"
 "Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: Module.php:216 view/item-sets-tree/admin/index/edit.phtml:3
+#: Module.php:223 view/item-sets-tree/admin/index/edit.phtml:3
 #: view/item-sets-tree/admin/index/index.phtml:1
 #: view/item-sets-tree/site/index/index.phtml:1
 msgid "Item Sets Tree"
@@ -28,7 +28,7 @@ msgstr "Collection parente"
 msgid "This item set has no parent item set"
 msgstr "Cette collection n'a pas de collection parente"
 
-#: Module.php:294
+#: Module.php:316
 msgid "All item sets (including ancestors) internal identifiers"
 msgstr ""
 "Identifiants internes de toutes les collections (y compris les ancêtres)"
@@ -61,6 +61,34 @@ msgstr "Ne pas trier"
 msgid "Sort by title"
 msgstr "Trier par titre"
 
+#: src/Form/SiteSettingsFieldset.php:18
+msgid "Display"
+msgstr "Affichage"
+
+#: src/Form/SiteSettingsFieldset.php:19
+msgid "Choose which item sets to display in the tree"
+msgstr "Choisissez les collections à afficher dans l'arborescence"
+
+#: src/Form/SiteSettingsFieldset.php:21
+msgid ""
+"Display all item sets without considering what is selected in the Resources "
+"tab"
+msgstr ""
+"Afficher toutes les collections sans tenir compte de ce qui est sélectionné "
+"dans l'onglet Ressources"
+
+#: src/Form/SiteSettingsFieldset.php:22
+msgid "Display only item sets selected in the Resources tab"
+msgstr ""
+"Afficher seulement les collections sélectionnées dans l'onglet Ressources"
+
+#: src/Form/SiteSettingsFieldset.php:23
+msgid ""
+"Display only item sets selected in the Resources tab and their descendants"
+msgstr ""
+"Afficher seulement les collections sélectionnées dans l'onglet Ressources "
+"et leur descendantes"
+
 #: src/Site/BlockLayout/ItemSetsTree.php:41
 msgid "Block title"
 msgstr "Titre du bloc"
@@ -80,3 +108,9 @@ msgstr "Lien pour les collections vides"
 #: src/Controller/Admin/IndexController.php:59
 msgid "Item sets tree successfully saved"
 msgstr "Hiérarchie des collections enregistrée avec succès"
+
+#~ msgid "Display all item sets"
+#~ msgstr "Afficher toutes les collections"
+
+#~ msgid "Display selected item sets"
+#~ msgstr "Afficher les collections sélectionnées"

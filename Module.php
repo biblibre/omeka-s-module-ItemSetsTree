@@ -23,6 +23,7 @@ namespace ItemSetsTree;
 
 use Composer\Semver\Comparator;
 use ItemSetsTree\Form\ConfigForm;
+use ItemSetsTree\Form\SiteSettingsFieldset;
 use Omeka\Module\AbstractModule;
 use Omeka\Permissions\Acl;
 use Laminas\EventManager\Event;
@@ -139,6 +140,12 @@ class Module extends AbstractModule
                 [$this, 'onItemApiSearchPre']
             );
         }
+
+        $sharedEventManager->attach(
+            \Omeka\Form\SiteSettingsForm::class,
+            'form.add_elements',
+            [$this, 'onSiteSettingsFormAddElements']
+        );
 
         $sharedEventManager->attach(
             'Solr\ValueExtractor\ItemValueExtractor',
@@ -285,6 +292,21 @@ class Module extends AbstractModule
 
             $request->setContent($data);
         }
+    }
+
+    public function onSiteSettingsFormAddElements(Event $event)
+    {
+        $services = $this->getServiceLocator();
+        $forms = $services->get('FormElementManager');
+        $siteSettings = $services->get('Omeka\Settings\Site');
+
+        $fieldset = $forms->get(SiteSettingsFieldset::class);
+        $fieldset->populateValues([
+            'itemsetstree_display' => $siteSettings->get('itemsetstree_display', 'all'),
+        ]);
+
+        $form = $event->getTarget();
+        $form->add($fieldset);
     }
 
     public function onSolrValueExtractorFields(Event $event)
