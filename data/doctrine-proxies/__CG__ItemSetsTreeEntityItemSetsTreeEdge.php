@@ -26,25 +26,27 @@ class ItemSetsTreeEdge extends \ItemSetsTree\Entity\ItemSetsTreeEdge implements 
     /**
      * @var boolean flag indicating if this object was already initialized
      *
-     * @see \Doctrine\Common\Persistence\Proxy::__isInitialized
+     * @see \Doctrine\Persistence\Proxy::__isInitialized
      */
     public $__isInitialized__ = false;
 
     /**
-     * @var array properties to be lazy loaded, with keys being the property
-     *            names and values being their default values
+     * @var array<string, null> properties to be lazy loaded, indexed by property name
+     */
+    public static $lazyPropertiesNames = array (
+);
+
+    /**
+     * @var array<string, mixed> default values of properties to be lazy loaded, with keys being the property names
      *
      * @see \Doctrine\Common\Proxy\Proxy::__getLazyProperties
      */
-    public static $lazyPropertiesDefaults = [];
+    public static $lazyPropertiesDefaults = array (
+);
 
 
 
-    /**
-     * @param \Closure $initializer
-     * @param \Closure $cloner
-     */
-    public function __construct($initializer = null, $cloner = null)
+    public function __construct(?\Closure $initializer = null, ?\Closure $cloner = null)
     {
 
         $this->__initializer__ = $initializer;
@@ -64,10 +66,10 @@ class ItemSetsTreeEdge extends \ItemSetsTree\Entity\ItemSetsTreeEdge implements 
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'itemSet', 'parentItemSet'];
+            return ['__isInitialized__', 'id', 'itemSet', 'parentItemSet', 'rank'];
         }
 
-        return ['__isInitialized__', 'id', 'itemSet', 'parentItemSet'];
+        return ['__isInitialized__', 'id', 'itemSet', 'parentItemSet', 'rank'];
     }
 
     /**
@@ -82,7 +84,7 @@ class ItemSetsTreeEdge extends \ItemSetsTree\Entity\ItemSetsTreeEdge implements 
 
                 $existingProperties = get_object_vars($proxy);
 
-                foreach ($proxy->__getLazyProperties() as $property => $defaultValue) {
+                foreach ($proxy::$lazyPropertiesDefaults as $property => $defaultValue) {
                     if ( ! array_key_exists($property, $existingProperties)) {
                         $proxy->$property = $defaultValue;
                     }
@@ -165,6 +167,7 @@ class ItemSetsTreeEdge extends \ItemSetsTree\Entity\ItemSetsTreeEdge implements 
     /**
      * {@inheritDoc}
      * @internal generated method: use only when explicitly handling proxy specific loading logic
+     * @deprecated no longer in use - generated code now relies on internal components rather than generated public API
      * @static
      */
     public function __getLazyProperties()
@@ -213,7 +216,7 @@ class ItemSetsTreeEdge extends \ItemSetsTree\Entity\ItemSetsTreeEdge implements 
     /**
      * {@inheritDoc}
      */
-    public function setParentItemSet(\Omeka\Entity\ItemSet $itemSet)
+    public function setParentItemSet(?\Omeka\Entity\ItemSet $itemSet)
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setParentItemSet', [$itemSet]);
@@ -230,6 +233,28 @@ class ItemSetsTreeEdge extends \ItemSetsTree\Entity\ItemSetsTreeEdge implements 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getParentItemSet', []);
 
         return parent::getParentItemSet();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setRank(int $rank)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRank', [$rank]);
+
+        return parent::setRank($rank);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getRank()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRank', []);
+
+        return parent::getRank();
     }
 
     /**

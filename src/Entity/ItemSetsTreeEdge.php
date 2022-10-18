@@ -44,9 +44,14 @@ class ItemSetsTreeEdge extends AbstractEntity
 
     /**
      * @ManyToOne(targetEntity="Omeka\Entity\ItemSet")
-     * @JoinColumn(onDelete="cascade", nullable=false)
+     * @JoinColumn(onDelete="cascade", nullable=true)
      */
     protected $parentItemSet;
+
+    /**
+     * @Column(name="`rank`", type="integer")
+     */
+    protected $rank = 0;
 
     public function getId()
     {
@@ -63,7 +68,7 @@ class ItemSetsTreeEdge extends AbstractEntity
         return $this->itemSet;
     }
 
-    public function setParentItemSet(ItemSet $itemSet)
+    public function setParentItemSet(?ItemSet $itemSet)
     {
         $this->parentItemSet = $itemSet;
     }
@@ -71,5 +76,15 @@ class ItemSetsTreeEdge extends AbstractEntity
     public function getParentItemSet()
     {
         return $this->parentItemSet;
+    }
+
+    public function setRank(int $rank)
+    {
+        $this->rank = $rank;
+    }
+
+    public function getRank()
+    {
+        return $this->rank;
     }
 }

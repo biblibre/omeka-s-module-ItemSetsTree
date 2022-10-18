@@ -3,7 +3,9 @@
     <input type="text" value="<?php echo $this->escapeHtml($this->translate($link->getName())); ?>" disabled="disabled">
 </label>
 
+<?php $label = isset($data['label']) && '' !== trim($data['label']) ? $data['label'] : null; ?>
+
 <label>
     <?php echo $this->translate('Label'); ?>
-    <input type="text" data-name="label" value="<?php echo $this->escapeHtml($data['label']); ?>">
+    <input type="text" data-name="label" value="<?php echo $this->escapeHtml($label); ?>">
 </label>

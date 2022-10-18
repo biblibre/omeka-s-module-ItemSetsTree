@@ -70,4 +70,9 @@ class ItemSetsTree extends AbstractPlugin
     {
         return $this->itemSetsTree->getDescendants($itemSet);
     }
+
+    public function replaceTree(array $tree = [])
+    {
+        $this->itemSetsTree->replaceTree($tree);
+    }
 }
