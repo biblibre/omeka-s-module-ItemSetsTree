@@ -18,3 +18,5 @@ sidebar.
 
 The tree is also accessible in public sites. You can add a navigation link to
 it in [Sites » Navigation](https://omeka.org/s/docs/user-manual/sites/site_navigation/)
+
+[See documentation](https://omeka-s-module-itemsetstree.readthedocs.io/en/latest/)
