@@ -28,3 +28,4 @@ it in `Sites » Navigation <https://omeka.org/s/docs/user-manual/sites/site_navi
    :hidden:
 
    define-item-set-hierarchy
+   configuration

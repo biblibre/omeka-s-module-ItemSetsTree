@@ -1,0 +1,169 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022, BibLibre
+# This file is distributed under the same license as the Item Sets Tree
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Item Sets Tree\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-20 09:41+0200\n"
+"PO-Revision-Date: 2022-10-20 09:42+0200\n"
+"Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
+"Language: fr\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: ../../configuration.rst:2
+msgid "Configuration"
+msgstr "Configuration"
+
+#: ../../configuration.rst:4
+msgid ""
+"There are two different places where you can configure Item Sets Tree: global "
+"configuration and site configuration."
+msgstr ""
+"Il y a deux endroits différents où vous pouvez configurer Item Sets Tree: la "
+"configuration globale et la configuration du site."
+
+#: ../../configuration.rst:8
+msgid "Global configuration"
+msgstr "Configuration globale"
+
+#: ../../configuration.rst:10
+msgid ""
+"You can access global configuration by going to the modules page and click on "
+"the ``Configure`` button on the corresponding row."
+msgstr ""
+"Vous pouvez accéder à la configuration globale en allant sur la page des "
+"modules et en cliquant sur le bouton ``Configurer`` sur la ligne correspondante."
+
+#: ../../configuration.rst:15
+msgid "Here is how the module configuration page looks like:"
+msgstr "Voici à quoi ressemble la page de configuration du module:"
+
+#: ../../configuration.rst:20
+msgid "Item sets include descendants"
+msgstr "Les collections incluent les descendantes"
+
+#: ../../configuration.rst:22
+msgid ""
+"If enabled, this option will make Omeka act as if items of an item set also "
+"belong to this item set's ascendants. For instance when searching for items, "
+"you can limit by item set and the results will also include items of "
+"descendants item sets."
+msgstr ""
+"Si activée, cette option fera en sorte qu’Omeka se comporte comme si les "
+"contenus d'une collection appartiennent aussi aux ascendantes de cette "
+"collection. Par exemple en recherche de contenus, vous pouvez filtrer par "
+"collection et les résultats incluront également les contenus des collections "
+"descendantes."
+
+#: ../../configuration.rst:28
+msgid "Sorting method"
+msgstr "Méthode de tri"
+
+#: ../../configuration.rst:30
+msgid ""
+"By default, item sets of the same level in the tree are sorted by title. You "
+"can disable that by selecting ``Do not sort``. In that case, the order of item "
+"sets will be what you :doc:`defined in the item set hierarchy <define-item-set-"
+"hierarchy>`"
+msgstr ""
+"Par défaut, les collections d'un même niveau dans l'arborescence sont triées "
+"par titre. Vous pouvez désactiver ça en sélectionnant ``Ne pas trier``. Dans ce "
+"cas, l'ordre des collections sera celui que vous avez :doc:`défini dans la "
+"hiérarchie des collections <define-item-set-hierarchy>`"
+
+#: ../../configuration.rst:36
+msgid "Site configuration"
+msgstr "Configuration du site"
+
+#: ../../configuration.rst:38
+msgid ""
+"You can access site configuration by going to the `site settings page <https://"
+"omeka.org/s/docs/user-manual/sites/site_settings/#settings>`_."
+msgstr ""
+"Vous pouvez accéder à la configuration du site en allant sur la `page des "
+"paramètres du site <https://omeka.org/s/docs/user-manual/sites/site_settings/"
+"#settings>`_."
+
+#: ../../configuration.rst:41
+msgid "In this page there is a section called ``Item Sets Tree``."
+msgstr ""
+"Sur cette page il y a une section intitulée ``Hiérarchie des collections``."
+
+#: ../../configuration.rst:46
+msgid "Display"
+msgstr "Affichage"
+
+#: ../../configuration.rst:48
+msgid ""
+"This setting controls which item sets will be displayed, depending on which "
+"item sets have been added to the site. (See `how to add an item set to a site "
+"<https://omeka.org/s/docs/user-manual/sites/site_resources/#item-sets>`_)"
+msgstr ""
+"Ce paramètre contrôle quelles collections seront affichées, en fonction des "
+"collections qui ont été ajoutées au site. (Voir `comment ajouter une collection "
+"à un site <https://omeka.org/s/docs/user-manual/sites/site_resources/#item-"
+"sets>`_)"
+
+#: ../../configuration.rst:53
+msgid "Possible values"
+msgstr "Valeurs possibles"
+
+#: ../../configuration.rst:57
+msgid ""
+"Display all item sets without considering what is selected in the Resources tab"
+msgstr ""
+"Afficher toutes les collections sans tenir compte de ce qui est sélectionné "
+"dans l'onglet Ressources"
+
+#: ../../configuration.rst:56
+msgid ""
+"This will always display all item sets, no matter which item sets were added to "
+"the site."
+msgstr ""
+"Cela affichera toujours toutes les collections, peu importe quelles collections "
+"ont été ajoutées au site."
+
+#: ../../configuration.rst:62
+msgid "Display only item sets selected in the Resources tab"
+msgstr "Afficher seulement les collections sélectionnées dans l'onglet Ressources"
+
+#: ../../configuration.rst:60
+msgid ""
+"This will display only selected item sets. If selected item sets are connected "
+"to each other, they will form a tree as expected. Otherwise, they will form "
+"separate trees."
+msgstr ""
+"Cela affichera seulement les collections sélectionnées. Si les collections "
+"sélectionnées sont connectées entre elles, elles formeront une arborescence "
+"comme prévu. Sinon, elles formeront des arborescences séparées."
+
+#: ../../configuration.rst:65
+msgid "Display only item sets selected in the Resources tab and their descendants"
+msgstr ""
+"Afficher seulement les collections sélectionnées dans l'onglet Ressources et "
+"leur descendantes"
+
+#: ../../configuration.rst:65
+msgid ""
+"This behaves the same as ``Display selected item sets``, but all descendants of "
+"selected item sets are included as well."
+msgstr ""
+"Cela se comporte de la même façon que ``Afficher les collections "
+"sélectionnées``, mais toutes les descendantes des collections sélectionnées "
+"seront incluses également."
+
+#~ msgid "Display all item sets"
+#~ msgstr "Afficher toutes les collections"
+
+#~ msgid "Display selected item sets"
+#~ msgstr "Afficher les collections sélectionnées"

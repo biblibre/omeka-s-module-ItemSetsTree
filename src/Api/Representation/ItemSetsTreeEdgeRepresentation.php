@@ -49,4 +49,9 @@ class ItemSetsTreeEdgeRepresentation extends AbstractEntityRepresentation
         return $this->getAdapter('item_sets')
             ->getRepresentation($this->resource->getParentItemSet());
     }
+
+    public function rank()
+    {
+        return $this->resource->getRank();
+    }
 }
