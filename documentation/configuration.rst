@@ -24,6 +24,8 @@ belong to this item set's ascendants. For instance when searching for items,
 you can limit by item set and the results will also include items of
 descendants item sets.
 
+.. _configuration-sorting-method:
+
 Sorting method
 ^^^^^^^^^^^^^^
 
@@ -31,6 +33,8 @@ By default, item sets of the same level in the tree are sorted by title. You
 can disable that by selecting ``Do not sort``. In that case, the order of item
 sets will be what you :doc:`defined in the item set hierarchy
 <define-item-set-hierarchy>`
+
+.. _site-configuration:
 
 Site configuration
 ------------------
