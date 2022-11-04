@@ -1,0 +1,218 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022, BibLibre
+# This file is distributed under the same license as the Item Sets Tree
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Item Sets Tree\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-04 08:03+0100\n"
+"PO-Revision-Date: 2022-11-04 08:13+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
+"Last-Translator: Julian Maurice <julian.maurice@biblibre.com>\n"
+"Language-Team: \n"
+"Language: fr\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: ../../view-helpers.rst:2
+msgid "View helpers"
+msgstr "View helpers"
+
+#: ../../view-helpers.rst:7
+msgid "itemSetsTree"
+msgstr "itemSetsTree"
+
+#: ../../view-helpers.rst:9
+msgid "``itemSetsTree`` view helper provides the following methods:"
+msgstr ""
+"Le *view helper* ``itemSetsTree`` met à disposition les méthodes suivantes:"
+
+#: ../../view-helpers.rst:12
+msgid "getRootItemSets"
+msgstr "getRootItemSets"
+
+#: ../../view-helpers.rst:14
+msgid "Returns the root item sets (item sets that do not have a parent)."
+msgstr ""
+"Retourne les collections mères (les collections qui n'ont pas de parent)."
+
+#: ../../view-helpers.rst:17 ../../view-helpers.rst:52
+#: ../../view-helpers.rst:142 ../../view-helpers.rst:165
+#: ../../view-helpers.rst:191 ../../view-helpers.rst:221
+msgid "Synopsis"
+msgstr "Synopsis"
+
+#: ../../view-helpers.rst:24 ../../view-helpers.rst:59
+#: ../../view-helpers.rst:149 ../../view-helpers.rst:172
+#: ../../view-helpers.rst:198 ../../view-helpers.rst:228
+msgid "Arguments"
+msgstr "Arguments"
+
+#: ../../view-helpers.rst:31 ../../view-helpers.rst:74
+#: ../../view-helpers.rst:208
+msgid "``$options``"
+msgstr "``$options``"
+
+#: ../../view-helpers.rst:27 ../../view-helpers.rst:66
+#: ../../view-helpers.rst:204
+msgid "An associative array which can contains the following entries:"
+msgstr "A tableau associatif qui peut contenir les entrées suivantes:"
+
+#: ../../view-helpers.rst:31 ../../view-helpers.rst:74
+#: ../../view-helpers.rst:208
+msgid "``sorting_method``"
+msgstr "``sorting_method``"
+
+#: ../../view-helpers.rst:30 ../../view-helpers.rst:73
+#: ../../view-helpers.rst:207
+msgid ""
+"Sorting method. Can be ``'none'`` or ``'title'``. If not given, the :ref:"
+"`global configuration <configuration-sorting-method>` is used."
+msgstr ""
+"Méthode de tri. Peut être ``'none'`` (aucun tri) ou ``'title'`` (tri par "
+"titre). Si non renseigné, la :ref:`configuration globale <configuration-"
+"sorting-method>` est utilisée."
+
+#: ../../view-helpers.rst:34 ../../view-helpers.rst:77
+#: ../../view-helpers.rst:155 ../../view-helpers.rst:178
+#: ../../view-helpers.rst:211 ../../view-helpers.rst:234
+msgid "Returns"
+msgstr "Retourne"
+
+#: ../../view-helpers.rst:36
+msgid "An array of ``Omeka\\Api\\Representation\\ItemSetRepresentation``"
+msgstr "Un tableau de ``Omeka\\Api\\Representation\\ItemSetRepresentation``"
+
+#: ../../view-helpers.rst:39 ../../view-helpers.rst:112
+msgid "Examples"
+msgstr "Exemples"
+
+#: ../../view-helpers.rst:47
+msgid "getItemSetsTree"
+msgstr "getItemSetsTree"
+
+#: ../../view-helpers.rst:49
+msgid "Returns the item sets in a hierarchical structure"
+msgstr "Retourne les collections dans une structure hiérarchique"
+
+#: ../../view-helpers.rst:63
+msgid "``$maxDepth``"
+msgstr "``$maxDepth``"
+
+#: ../../view-helpers.rst:62
+msgid ""
+"Maximum depth of the tree. If not given or ``null``, returns the whole tree."
+msgstr ""
+"Profondeur maximale de l'arbre. Si non renseigné ou ``null``, retourne "
+"l'arbre complet."
+
+#: ../../view-helpers.rst:70
+msgid "``site_id``"
+msgstr "``site_id``"
+
+#: ../../view-helpers.rst:69
+msgid ""
+"Site identifier. If given, this site's :ref:`configuration <site-"
+"configuration>` will be used."
+msgstr ""
+"Identifiant du site. Si renseigné, la :ref:`configuration <site-"
+"configuration>` de ce site sera utilisée."
+
+#: ../../view-helpers.rst:79
+msgid ""
+"An array of associative arrays. Each associative array represents a tree "
+"node and will contain the following keys:"
+msgstr ""
+"Un tableau de tableaux associatifs. Chaque tableau associatif représente un "
+"nœud de l'arbre et contiendra les clés suivantes:"
+
+#: ../../view-helpers.rst:84
+msgid "``itemSet``"
+msgstr "``itemSet``"
+
+#: ../../view-helpers.rst:83
+msgid ""
+"The ``Omeka\\Api\\Representation\\ItemSetRepresentation`` corresponding to "
+"the tree node."
+msgstr ""
+"L'objet ``Omeka\\Api\\Representation\\ItemSetRepresentation`` correspondant "
+"au nœud de l'arbre."
+
+#: ../../view-helpers.rst:88
+msgid "``children``"
+msgstr "``children``"
+
+#: ../../view-helpers.rst:87
+msgid "An array of associative arrays that represent children of the tree node"
+msgstr ""
+"Un tableau de tableaux associatifs représentant les enfants du nœud de "
+"l'arbre"
+
+#: ../../view-helpers.rst:90
+msgid "Example::"
+msgstr "Exemple::"
+
+#: ../../view-helpers.rst:137
+msgid "getParent"
+msgstr "getParent"
+
+#: ../../view-helpers.rst:139
+msgid "Returns the parent of an item set."
+msgstr "Retourne le parent d'une collection."
+
+#: ../../view-helpers.rst:152 ../../view-helpers.rst:175
+#: ../../view-helpers.rst:201 ../../view-helpers.rst:231
+msgid "``$itemSet``"
+msgstr "``$itemSet``"
+
+#: ../../view-helpers.rst:152 ../../view-helpers.rst:157
+#: ../../view-helpers.rst:175 ../../view-helpers.rst:201
+#: ../../view-helpers.rst:231
+msgid "An object of type ``Omeka\\Api\\Representation\\ItemSetRepresentation``"
+msgstr "Un objet de type ``Omeka\\Api\\Representation\\ItemSetRepresentation``"
+
+#: ../../view-helpers.rst:160
+msgid "getAncestors"
+msgstr "getAncestors"
+
+#: ../../view-helpers.rst:162
+msgid "Returns the ancestors of an item set."
+msgstr "Retourne les ancêtres d'une collection."
+
+#: ../../view-helpers.rst:180 ../../view-helpers.rst:213
+#: ../../view-helpers.rst:236
+msgid ""
+"An array of objects of type ``Omeka\\Api\\Representation"
+"\\ItemSetRepresentation``."
+msgstr ""
+"Un tableau d'objets de type ``Omeka\\Api\\Representation"
+"\\ItemSetRepresentation``."
+
+#: ../../view-helpers.rst:182
+msgid ""
+"The first element will be the parent, the second element will be the "
+"grandparent, and so on."
+msgstr ""
+"Le premier élément sera le parent, le deuxième élément sera le grand-parent, "
+"et ainsi de suite."
+
+#: ../../view-helpers.rst:186
+msgid "getChildren"
+msgstr "getChildren"
+
+#: ../../view-helpers.rst:188
+msgid "Returns the children of an item set."
+msgstr "Retourne les enfants d'une collection."
+
+#: ../../view-helpers.rst:216
+msgid "getDescendants"
+msgstr "getDescendants"
+
+#: ../../view-helpers.rst:218
+msgid "Returns the descendants of an item set."
+msgstr "Retourne les descendants d'une collection."
