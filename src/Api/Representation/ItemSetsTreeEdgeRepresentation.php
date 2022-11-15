@@ -32,9 +32,11 @@ class ItemSetsTreeEdgeRepresentation extends AbstractEntityRepresentation
 
     public function getJsonLd()
     {
+        $parentItemSet = $this->parentItemSet();
+
         return [
             'o:item_set' => $this->itemSet()->getReference(),
-            'o:parent_item_set' => $this->parentItemSet()->getReference(),
+            'o:parent_item_set' => $parentItemSet ? $parentItemSet->getReference() : null,
         ];
     }
 
