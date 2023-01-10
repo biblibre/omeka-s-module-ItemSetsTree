@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+This version adds support for Omeka S 4.0; the minimum supported version of
+Omeka S is 3.0.
+
 ### Fixed
 
 - Fixed REST API endpoint (#13)
