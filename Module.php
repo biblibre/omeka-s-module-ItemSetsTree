@@ -306,7 +306,17 @@ class Module extends AbstractModule
         ]);
 
         $form = $event->getTarget();
-        $form->add($fieldset);
+
+        $groups = $form->getOption('element_groups');
+        if (isset($groups)) {
+            $groups['itemsetstree'] = $fieldset->getLabel();
+            $form->setOption('element_groups', $groups);
+            foreach ($fieldset->getElements() as $element) {
+                $form->add($element);
+            }
+        } else {
+            $form->add($fieldset);
+        }
     }
 
     public function onSolrValueExtractorFields(Event $event)

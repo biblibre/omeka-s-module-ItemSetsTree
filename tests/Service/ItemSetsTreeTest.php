@@ -15,6 +15,8 @@ class ItemSetsTreeTest extends AbstractHttpControllerTestCase
 
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->loginAsAdmin();
         $this->itemSet1 = $this->createItemSet('Item set 1');
         $this->itemSet2 = $this->createItemSet('Item set 2');

@@ -15,6 +15,7 @@ class SiteSettingsFieldset extends Fieldset
             'type' => Select::class,
             'name' => 'itemsetstree_display',
             'options' => [
+                'element_group' => 'itemsetstree',
                 'label' => 'Display', // @translate
                 'info' => 'Choose which item sets to display in the tree', // @translate
                 'value_options' => [
