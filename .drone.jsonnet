@@ -31,14 +31,9 @@ local Pipeline(omekaVersion, phpVersion, dbImage) = {
 };
 
 [
-    Pipeline('3.0.2', '7.4', 'mysql:8.0'),
     Pipeline('3.0.2', '7.4', 'mariadb:10.9'),
-    Pipeline('3.1.2', '7.4', 'mysql:8.0'),
-    Pipeline('3.1.2', '7.4', 'mariadb:10.9'),
-    Pipeline('3.1.2', '8.0', 'mysql:8.0'),
     Pipeline('3.1.2', '8.0', 'mariadb:10.9'),
-    Pipeline('3.2.3', '7.4', 'mysql:8.0'),
-    Pipeline('3.2.3', '7.4', 'mariadb:10.9'),
-    Pipeline('3.2.3', '8.0', 'mysql:8.0'),
     Pipeline('3.2.3', '8.0', 'mariadb:10.9'),
+    Pipeline('4.0.0-rc', '8.0', 'mariadb:10.9'),
+    Pipeline('4.0.0-rc', '8.1', 'mariadb:10.9'),
 ]
