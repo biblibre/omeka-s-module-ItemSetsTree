@@ -48,7 +48,12 @@ class ItemSetsTreeSelect extends AbstractHelper
             $spec['options']['empty_option'] = 'Select item set'; // @translate
         }
 
-        $itemSetsTree = $this->itemSetsTree->getItemSetsTree($maxDepth);
+        $options = [];
+        $currentSite = $this->getView()->layout()->site;
+        if ($currentSite) {
+            $options['site_id'] = $currentSite->id();
+        }
+        $itemSetsTree = $this->itemSetsTree->getItemSetsTree($maxDepth, $options);
         $valueOptions = $this->getValueOptions($itemSetsTree);
         $spec['options']['value_options'] = $valueOptions;
 

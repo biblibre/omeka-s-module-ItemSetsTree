@@ -47,6 +47,13 @@ class ItemSetsTree extends AbstractHelper
      */
     public function getItemSetsTree(int $maxDepth = null, array $options = [])
     {
+        if (!isset($options['site_id'])) {
+            $currentSite = $this->getView()->layout()->site;
+            if ($currentSite) {
+                $options['site_id'] = $currentSite->id();
+            }
+        }
+
         return $this->itemSetsTree->getItemSetsTree($maxDepth, $options);
     }
 
