@@ -1,4 +1,4 @@
 <?php echo $this->pageTitle($this->translate('Item Sets Tree')); ?>
 
-<?php $itemSetsTree = $this->itemSetsTree()->getItemSetsTree(null, ['site_id' => $this->layout()->site->id()]); ?>
+<?php $itemSetsTree = $this->itemSetsTree()->getItemSetsTree(); ?>
 <?php echo $this->partial('item-sets-tree/item-sets-tree', ['itemSetsTree' => $itemSetsTree]); ?>

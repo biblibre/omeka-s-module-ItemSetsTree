@@ -67,7 +67,7 @@ Arguments
 
     ``site_id``
         Site identifier. If given, this site's :ref:`configuration
-        <site-configuration>` will be used.
+        <site-configuration>` will be used. Defaults to the current site.
 
     ``sorting_method``
         Sorting method. Can be ``'none'`` or ``'title'``. If not given, the
