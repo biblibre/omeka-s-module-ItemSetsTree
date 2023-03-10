@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; Documentation Item Sets Tree </title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="View helpers" href="view-helpers.html" />
+    <link rel="prev" title="Définir la hiérarchie de collections" href="define-item-set-hierarchy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Item Sets Tree
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="define-item-set-hierarchy.html">Définir la hiérarchie de collections</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#global-configuration">Configuration globale</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#item-sets-include-descendants">Les collections incluent les descendantes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sorting-method">Méthode de tri</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site-configuration">Configuration du site</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#display">Affichage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#possible-values">Valeurs possibles</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="view-helpers.html">View helpers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Item Sets Tree</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/configuration.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Lien permanent vers cette rubrique"></a></h1>
+<p>Il y a deux endroits différents où vous pouvez configurer Item Sets Tree: la configuration globale et la configuration du site.</p>
+<section id="global-configuration">
+<h2>Configuration globale<a class="headerlink" href="#global-configuration" title="Lien permanent vers cette rubrique"></a></h2>
+<p>Vous pouvez accéder à la configuration globale en allant sur la page des modules et en cliquant sur le bouton <code class="docutils literal notranslate"><span class="pre">Configurer</span></code> sur la ligne correspondante.</p>
+<img alt="_images/module-page.png" src="_images/module-page.png" />
+<p>Voici à quoi ressemble la page de configuration du module:</p>
+<img alt="_images/module-configuration.png" src="_images/module-configuration.png" />
+<section id="item-sets-include-descendants">
+<h3>Les collections incluent les descendantes<a class="headerlink" href="#item-sets-include-descendants" title="Lien permanent vers cette rubrique"></a></h3>
+<p>Si activée, cette option fera en sorte qu’Omeka se comporte comme si les contenus d’une collection appartiennent aussi aux ascendantes de cette collection. Par exemple en recherche de contenus, vous pouvez filtrer par collection et les résultats incluront également les contenus des collections descendantes.</p>
+</section>
+<section id="sorting-method">
+<span id="configuration-sorting-method"></span><h3>Méthode de tri<a class="headerlink" href="#sorting-method" title="Lien permanent vers cette rubrique"></a></h3>
+<p>Par défaut, les collections d’un même niveau dans l’arborescence sont triées par titre. Vous pouvez désactiver ça en sélectionnant <code class="docutils literal notranslate"><span class="pre">Ne</span> <span class="pre">pas</span> <span class="pre">trier</span></code>. Dans ce cas, l’ordre des collections sera celui que vous avez <a class="reference internal" href="define-item-set-hierarchy.html"><span class="doc">défini dans la hiérarchie des collections</span></a></p>
+</section>
+</section>
+<section id="site-configuration">
+<span id="id1"></span><h2>Configuration du site<a class="headerlink" href="#site-configuration" title="Lien permanent vers cette rubrique"></a></h2>
+<p>Vous pouvez accéder à la configuration du site en allant sur la <a class="reference external" href="https://omeka.org/s/docs/user-manual/sites/site_settings/#settings">page des paramètres du site</a>.</p>
+<p>Sur cette page il y a une section intitulée <code class="docutils literal notranslate"><span class="pre">Hiérarchie</span> <span class="pre">des</span> <span class="pre">collections</span></code>.</p>
+<img alt="_images/site-configuration.png" src="_images/site-configuration.png" />
+<section id="display">
+<h3>Affichage<a class="headerlink" href="#display" title="Lien permanent vers cette rubrique"></a></h3>
+<p>Ce paramètre contrôle quelles collections seront affichées, en fonction des collections qui ont été ajoutées au site. (Voir <a class="reference external" href="https://omeka.org/s/docs/user-manual/sites/site_resources/#item-sets">comment ajouter une collection à un site</a>)</p>
+<section id="possible-values">
+<h4>Valeurs possibles<a class="headerlink" href="#possible-values" title="Lien permanent vers cette rubrique"></a></h4>
+<dl class="simple">
+<dt>Afficher toutes les collections sans tenir compte de ce qui est sélectionné dans l’onglet Ressources</dt><dd><p>Cela affichera toujours toutes les collections, peu importe quelles collections ont été ajoutées au site.</p>
+</dd>
+<dt>Afficher seulement les collections sélectionnées dans l’onglet Ressources</dt><dd><p>Cela affichera seulement les collections sélectionnées. Si les collections sélectionnées sont connectées entre elles, elles formeront une arborescence comme prévu. Sinon, elles formeront des arborescences séparées.</p>
+</dd>
+<dt>Afficher seulement les collections sélectionnées dans l’onglet Ressources et leur descendantes</dt><dd><p>Cela se comporte de la même façon que <code class="docutils literal notranslate"><span class="pre">Afficher</span> <span class="pre">les</span> <span class="pre">collections</span> <span class="pre">sélectionnées</span></code>, mais toutes les descendantes des collections sélectionnées seront incluses également.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="define-item-set-hierarchy.html" class="btn btn-neutral float-left" title="Définir la hiérarchie de collections" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="view-helpers.html" class="btn btn-neutral float-right" title="View helpers" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, BibLibre.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
