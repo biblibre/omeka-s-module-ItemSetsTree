@@ -195,14 +195,27 @@ class ItemSetsTree
         return $itemSetsTree;
     }
 
-    public function getParent(ItemSetRepresentation $itemSet)
+    public function getParent(ItemSetRepresentation $itemSet): ?ItemSetRepresentation
     {
-        $itemSetsTreeEdges = $this->api->search('item_sets_tree_edges', ['item_set_id' => $itemSet->id()])->getContent();
-        if (!empty($itemSetsTreeEdges)) {
-            $parentItemSet = $itemSetsTreeEdges[0]->parentItemSet();
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('itemset')
+            ->from('Omeka\Entity\ItemSet', 'itemset')
+            ->innerJoin('ItemSetsTree\Entity\ItemSetsTreeEdge', 'edge', 'WITH', 'itemset = edge.parentItemSet')
+            ->where('edge.itemSet = :itemSetId')
+            ->setParameter('itemSetId', $itemSet->id());
 
-            return $parentItemSet;
+        $query = $qb->getQuery();
+        $parentItemSets = $query->getResult();
+        $parentItemSet = array_shift($parentItemSets);
+
+        if ($parentItemSet) {
+            $itemSetAdapter = $this->apiAdapters->get('item_sets');
+            $itemSetRepresentation = new ItemSetRepresentation($parentItemSet, $itemSetAdapter);
+
+            return $itemSetRepresentation;
         }
+
+        return null;
     }
 
     public function getAncestors(ItemSetRepresentation $itemSet)
