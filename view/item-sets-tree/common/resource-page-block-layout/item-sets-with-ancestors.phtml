@@ -1,0 +1,24 @@
+<?php
+$filterLocale = (bool) $this->siteSetting('filter_locale_values');
+$lang = $this->lang();
+echo $lang;
+$valueLang = $filterLocale ? [$lang, ''] : null;
+?>
+<?php if ($itemSets): ?>
+<dl class="item-sets">
+    <div class="property">
+        <dt><?= $this->translate('Item sets') ?></dt>
+        <?php foreach ($itemSets as $itemSet): ?>
+            <dd class="value">
+                <span class="value-content">
+                    <?php $ancestors = array_reverse($this->itemSetsTree()->getAncestors($itemSet)); ?>
+                    <?php foreach ($ancestors as $ancestor): ?>
+                        <?= $ancestor->link($ancestor->displayTitle(null, $valueLang)) ?> »
+                    <?php endforeach; ?>
+                    <?= $itemSet->link($itemSet->displayTitle(null, $valueLang)) ?>
+                </span>
+            </dd>
+        <?php endforeach; ?>
+    </div>
+</dl>
+<?php endif; ?>

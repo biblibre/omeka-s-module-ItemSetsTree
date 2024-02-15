@@ -48,6 +48,11 @@ return [
             'itemSetsTree' => Site\Navigation\Link\ItemSetsTree::class,
         ],
     ],
+    'resource_page_block_layouts' => [
+        'invokables' => [
+            Site\ResourcePageBlockLayout\ItemSetsWithAncestors::class => Site\ResourcePageBlockLayout\ItemSetsWithAncestors::class,
+        ],
+    ],
     'router' => [
         'routes' => [
             'admin' => [
