@@ -169,7 +169,7 @@ class ItemSetsTree
         $sorting_method = $options['sorting_method'] ?? $this->settings->get('itemsetstree_sorting_method', 'title');
         if ($sorting_method === 'title') {
             $sortingFunction = function ($a, $b) {
-                return strcmp($a['itemSet']->title(), $b['itemSet']->title());
+                return strcmp($a['itemSet']->title() ?? '', $b['itemSet']->title() ?? '');
             };
         } else {
             $sortingFunction = function ($a, $b) {
