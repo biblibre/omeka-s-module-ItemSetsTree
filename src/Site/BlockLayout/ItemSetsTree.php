@@ -31,7 +31,7 @@ class ItemSetsTree extends AbstractBlockLayout
             'linkEmpty' => true,
         ];
 
-        $data = $block ? $block->data() + $defaults : $defaults;
+        $data = $block ? ($block->data() ?? []) + $defaults : $defaults;
 
         $form = new Form();
         $form->add([
