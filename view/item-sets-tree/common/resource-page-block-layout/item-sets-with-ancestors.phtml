@@ -1,7 +1,6 @@
 <?php
 $filterLocale = (bool) $this->siteSetting('filter_locale_values');
 $lang = $this->lang();
-echo $lang;
 $valueLang = $filterLocale ? [$lang, ''] : null;
 ?>
 <?php if ($itemSets): ?>
