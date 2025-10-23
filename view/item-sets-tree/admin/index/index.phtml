@@ -1,7 +1,9 @@
 <?php echo $this->pageTitle($this->translate('Item Sets Tree')); ?>
 
 <div id="page-actions">
+    <?php if ($this->userIsAllowed('ItemSetsTree\Controller\Admin\Index', 'edit')): ?>
     <?php echo $this->hyperlink($this->translate('Edit'), $this->url(null, ['action' => 'edit'], true), ['class' => 'button']); ?>
+    <?php endif; ?>
 </div>
 
 <?php $itemSetsTree = $this->itemSetsTree()->getItemSetsTree(); ?>
