@@ -48,12 +48,21 @@ class ItemSetsTreeEdgeAdapter extends AbstractEntityAdapter
 
     public function hydrate(Request $request, EntityInterface $entity, ErrorStore $errorStore)
     {
+        // Refresh the reference to avoid issues with doctrine.
         if ($this->shouldHydrate($request, 'o:item_set')) {
-            $entity->setItemSet($request->getValue('o:item_set'));
+            $itemSet = $request->getValue('o:item_set');
+            $itemSet = $itemSet
+                ? $this->getEntityManager()->getReference(\Omeka\Entity\ItemSet::class, $itemSet->getId())
+                : null;
+            $entity->setItemSet($itemSet);
         }
 
         if ($this->shouldHydrate($request, 'o:parent_item_set')) {
-            $entity->setParentItemSet($request->getValue('o:parent_item_set'));
+            $itemSet = $request->getValue('o:parent_item_set');
+            $itemSet = $itemSet
+                ? $this->getEntityManager()->getReference(\Omeka\Entity\ItemSet::class, $itemSet->getId())
+                : null;
+            $entity->setParentItemSet($itemSet);
         }
     }
 
