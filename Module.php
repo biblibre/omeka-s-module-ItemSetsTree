@@ -32,6 +32,7 @@ use Laminas\Mvc\Controller\AbstractController;
 use Laminas\Mvc\MvcEvent;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Renderer\PhpRenderer;
+use Laminas\Validator\InArray;
 
 class Module extends AbstractModule
 {
@@ -148,6 +149,12 @@ class Module extends AbstractModule
         );
 
         $sharedEventManager->attach(
+            \Omeka\Form\ResourceBatchUpdateForm::class,
+            'form.add_elements',
+            [$this, 'onResourceBatchEditAddElement']
+        );
+
+        $sharedEventManager->attach(
             'Solr\ValueExtractor\ItemValueExtractor',
             'solr.value_extractor.fields',
             [$this, 'onSolrValueExtractorFields']
@@ -156,6 +163,24 @@ class Module extends AbstractModule
             'Solr\ValueExtractor\ItemValueExtractor',
             'solr.value_extractor.extract_value',
             [$this, 'onSolrValueExtractorExtractValue']
+        );
+
+        $sharedEventManager->attach(
+            '*',
+            'api.preprocess_batch_update',
+            [$this, 'onApiPreprocessBatchUpdate']
+        );
+
+        $sharedEventManager->attach(
+            '*',
+            'api.hydrate.post',
+            [$this, 'onApiHydratePost']
+        );
+
+        $sharedEventManager->attach(
+            'Omeka\Form\ResourceBatchUpdateForm',
+            'form.add_input_filters',
+            [$this, 'onResourceBatchUpdateFormAddInputFilters']
         );
     }
 
@@ -249,18 +274,6 @@ class Module extends AbstractModule
         echo $view->partial('item-sets-tree/item-set-details', ['itemSet' => $itemSet]);
     }
 
-    public function onItemSetFormAddElements(Event $event)
-    {
-        $form = $event->getTarget();
-        $form->add([
-            'name' => 'item-sets-tree-parent-id',
-            'type' => 'Text',
-            'options' => [
-                'label' => 'Parent item set', // @translate
-            ],
-        ]);
-    }
-
     public function onItemApiSearchPre(Event $event)
     {
         $request = $event->getParam('request');
@@ -292,6 +305,103 @@ class Module extends AbstractModule
 
             $request->setContent($data);
         }
+    }
+
+    public function onResourceBatchEditAddElement(Event $event)
+    {
+        $form = $event->getTarget();
+
+        if ($form->getOption('resource_type') !== 'itemSet') {
+            return;
+        }
+
+        $itemSetsIds = $this->getServiceLocator()
+            ->get('ControllerPluginManager')->get('params')()
+            ->fromPost('resource_ids', []);
+
+        $query = $this->getServiceLocator()
+            ->get('ControllerPluginManager')->get('params')()
+            ->fromQuery();
+
+        if (empty($itemSetsIds)) {
+            if (empty($query)) {
+                return;
+            }
+            $api = $this->getServiceLocator()->get('Omeka\ApiManager');
+            $itemSets = $api->search('item_sets', $query)->getContent();
+            $itemSetsIds = [];
+
+            foreach ($itemSets as $itemSet) {
+                $itemSetsIds[] = $itemSet->id();
+            }
+        }
+
+        $options = [];
+        $currentSite = $this->getServiceLocator()->get('ControllerPluginManager')->get('currentSite')();
+        if ($currentSite) {
+            $options['site_id'] = $currentSite->id();
+        }
+
+        $itemSetsTree = $this->getServiceLocator()->get('ItemSetsTree')->getItemSetsTree(null, $options);
+
+        $form->add([
+            'name' => 'item-sets-tree-parent-id',
+            'type' => \Laminas\Form\Element\Select::class,
+            'options' => [
+                'label' => 'Parent item set', // @translate
+                'value_options' => array_merge(
+                    [[
+                        'value' => '',
+                        'label' => '[No change]',// @translate
+                    ]],
+                    $this->getValueOptionsSelect(
+                    $itemSetsTree,
+                    $itemSetsIds
+                )
+            ), ],
+        ]);
+    }
+
+    public function onResourceBatchUpdateFormAddInputFilters(Event $event)
+    {
+        $form = $event->getTarget();
+
+        if (!$form->has('item-sets-tree-parent-id')) {
+            return;
+        }
+
+        $inputFilter = $event->getParam('inputFilter');
+        if (!$inputFilter || !$inputFilter->has('item-sets-tree-parent-id')) {
+            return;
+        }
+
+        $inputFilter->add([
+            'name' => 'item-sets-tree-parent-id',
+            'required' => false,
+        ]);
+
+        $select = $form->get('item-sets-tree-parent-id');
+        $options = $select->getValueOptions();
+
+        // Filter out disabled options automatically
+        $validValues = [];
+        foreach ($options as $option) {
+            if (is_array($option)) {
+                if (empty($option['disabled'])) {
+                    $validValues[] = (string) $option['value'];
+                }
+            } else {
+                $validValues[] = (string) $option;
+            }
+        }
+
+        $input = $inputFilter->get('item-sets-tree-parent-id');
+
+        // Attach the InArray validator
+        $input->getValidatorChain()->attach(new InArray([
+            'haystack' => $validValues,
+            'strict' => InArray::COMPARE_NOT_STRICT,
+        ]));
     }
 
     public function onSiteSettingsFormAddElements(Event $event)
@@ -345,5 +455,108 @@ class Module extends AbstractModule
             $value = array_unique($value);
             $event->setParam('value', $value);
         }
+    }
+
+    public function onApiPreprocessBatchUpdate(Event $event)
+    {
+        $request = $event->getParam('request');
+        $rawData = $request->getContent();
+        $data = $event->getParam('data');
+        $service = $this->getServiceLocator();
+
+        if (isset($rawData['item-sets-tree-parent-id'])) {
+            $data['item-sets-tree-parent-id'] = $rawData['item-sets-tree-parent-id'];
+            $event->setParam('data', $data);
+        }
+    }
+
+    public function onApiHydratePost(Event $event)
+    {
+        $entity = $event->getParam('entity');
+        if (!$entity instanceof \Omeka\Entity\ItemSet) {
+            return;
+        }
+
+        $request = $event->getParam('request');
+        $data = $request->getContent();
+
+        if (!array_key_exists('item-sets-tree-parent-id', $data)) {
+            return;
+        }
+
+        if ($data['item-sets-tree-parent-id'] === '' || $data['item-sets-tree-parent-id'] === null) {
+            return;
+        }
+
+        $api = $this->getServiceLocator()->get('Omeka\ApiManager');
+
+        $entityManager = $this->getServiceLocator()->get('Omeka\EntityManager');
+        $itemSet = $entityManager->find('Omeka\Entity\ItemSet', $data['item-sets-tree-parent-id']);
+
+        $itemSetsTreeEdges = $api->search('item_sets_tree_edges',
+            ['item_set_id' => $entity->getId()])->getContent();
+
+        if (!empty($itemSetsTreeEdges)) {
+            $itemSetsTreeEdge = reset($itemSetsTreeEdges);
+
+            $api->update('item_sets_tree_edges', $itemSetsTreeEdge->id(),
+                        ['o:parent_item_set' => $itemSet],
+                        [],
+                        ['isPartial' => true]
+                    );
+        } else {
+            $api->create('item_sets_tree_edges',
+            ['o:item_set' => $entity,
+            'o:parent_item_set' => $itemSet, ]
+        );
+        }
+
+        return;
+    }
+
+    protected function getValueOptionsSelect($itemSetsTree, $itemSetsIds, $disabled = false, $depth = 0)
+    {
+        $valueOptions = [];
+
+        foreach ($itemSetsTree as $itemSetsTreeNode) {
+            $itemSet = $itemSetsTreeNode['itemSet'];
+            $currentDisabled = $disabled || in_array($itemSet->id(), $itemSetsIds);
+            $valueOptions[] = [
+                'value' => $itemSet->id(),
+                'label' => str_repeat('‒', $depth) . ' ' . $itemSet->displayTitle(),
+                'disabled' => $currentDisabled,
+            ];
+            $valueOptions = array_merge($valueOptions, $this->getValueOptionsSelect(
+                $itemSetsTreeNode['children'],
+                $itemSetsIds,
+                $currentDisabled,
+                $depth + 1));
+        }
+
+        return $valueOptions;
+    }
+
+    protected function getValueOptions($itemSetsTree, $itemSetsIds, $disabled = false, $depth = 0)
+    {
+        $valueOptions = [];
+
+        foreach ($itemSetsTree as $itemSetsTreeNode) {
+            $itemSet = $itemSetsTreeNode['itemSet'];
+            $currentDisabled = $disabled || in_array($itemSet->id(), $itemSetsIds);
+
+            if (!$currentDisabled) {
+                $valueOptions[] = [
+                    $itemSet->id(),
+                ];
+            }
+
+            $valueOptions = array_merge($valueOptions, $this->getValueOptions(
+                $itemSetsTreeNode['children'],
+                $itemSetsIds,
+                $currentDisabled,
+                $depth + 1));
+        }
+
+        return $valueOptions;
     }
 }
