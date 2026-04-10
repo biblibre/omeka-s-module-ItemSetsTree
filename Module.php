@@ -311,6 +311,10 @@ class Module extends AbstractModule
     {
         $form = $event->getTarget();
 
+        if ($form->getOption('resource_type') !== 'itemSet') {
+            return;
+        }
+
         $itemSetsIds = $this->getServiceLocator()
             ->get('ControllerPluginManager')->get('params')()
             ->fromPost('resource_ids', []);
@@ -381,13 +385,13 @@ class Module extends AbstractModule
 
         // Filter out disabled options automatically
         $validValues = [];
-        foreach ($options as $value => $option) {
+        foreach ($options as $option) {
             if (is_array($option)) {
-                if (empty($option['attributes']['disabled'])) {
-                    $validValues[] = $value;
+                if (empty($option['disabled'])) {
+                    $validValues[] = (string) $option['value'];
                 }
             } else {
-                $validValues[] = $value;
+                $validValues[] = (string) $option;
             }
         }
 
@@ -396,7 +400,7 @@ class Module extends AbstractModule
         // Attach the InArray validator
         $input->getValidatorChain()->attach(new InArray([
             'haystack' => $validValues,
-            'strict' => InArray::COMPARE_STRICT,
+            'strict' => InArray::COMPARE_NOT_STRICT,
         ]));
     }
 
@@ -480,6 +484,10 @@ class Module extends AbstractModule
             return;
         }
 
+        if ($data['item-sets-tree-parent-id'] === '' || $data['item-sets-tree-parent-id'] === null) {
+            return;
+        }
+
         $api = $this->getServiceLocator()->get('Omeka\ApiManager');
 
         $entityManager = $this->getServiceLocator()->get('Omeka\EntityManager');
@@ -542,7 +550,7 @@ class Module extends AbstractModule
                 ];
             }
 
-            $valueOptions = array_merge($valueOptions, $this->getValueOptionsSelect(
+            $valueOptions = array_merge($valueOptions, $this->getValueOptions(
                 $itemSetsTreeNode['children'],
                 $itemSetsIds,
                 $currentDisabled,
