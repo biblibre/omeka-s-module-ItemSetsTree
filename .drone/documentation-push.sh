@@ -31,6 +31,6 @@ for language in $languages; do
     cp -r "$DRONE_WORKSPACE/documentation/_build/$language/html" $language
     git add $language
 done
-git commit -m "Drone build: $DRONE_BUILD_NUMBER" -m "Triggered-by: $DRONE_COMMIT_SHA"
+git commit -m "Drone build: $DRONE_BUILD_NUMBER" -m "Triggered-by: $DRONE_COMMIT_SHA" || true
 
 git push origin gh-pages
