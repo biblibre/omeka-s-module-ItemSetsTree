@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 cd "$(dirname -- "$(dirname -- "$(readlink -f -- "$0")")")/documentation"
 pip install -r requirements.txt
 languages="en fr"

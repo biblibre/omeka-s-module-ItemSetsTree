@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 unset GIT_AUTHOR_NAME
 unset GIT_AUTHOR_EMAIL
 unset GIT_AUTHOR_DATE
