@@ -21,8 +21,8 @@ class ItemSetsTree extends AbstractBlockLayout
     public function form(
         PhpRenderer $view,
         SiteRepresentation $site,
-        SitePageRepresentation $page = null,
-        SitePageBlockRepresentation $block = null
+        ?SitePageRepresentation $page = null,
+        ?SitePageBlockRepresentation $block = null
     ) {
         $defaults = [
             'heading' => '',

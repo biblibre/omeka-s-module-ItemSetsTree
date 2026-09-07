@@ -27,7 +27,7 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ItemSetsTreeSelectFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         return new ItemSetsTreeSelect($container->get('FormElementManager'), $container->get('ItemSetsTree'));
     }

@@ -45,7 +45,7 @@ class ItemSetsTree extends AbstractHelper
     /**
      * @return \Omeka\Api\Representation\ItemSetRepresentation[]
      */
-    public function getItemSetsTree(int $maxDepth = null, array $options = [])
+    public function getItemSetsTree(?int $maxDepth = null, array $options = [])
     {
         if (!isset($options['site_id'])) {
             $currentSite = $this->getView()->layout()->site;

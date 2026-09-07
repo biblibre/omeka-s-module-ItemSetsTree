@@ -131,7 +131,7 @@ class ItemSetsTree
         return $siteItemSets;
     }
 
-    public function getItemSetsTree(int $maxDepth = null, array $options = [])
+    public function getItemSetsTree(?int $maxDepth = null, array $options = [])
     {
         $itemSetsTree = [];
         $itemSetsTreeFlat = [];
@@ -159,9 +159,9 @@ class ItemSetsTree
 
                 $parentItemSet = $edge->parentItemSet();
                 if ($parentItemSet && array_key_exists($parentItemSet->id(), $itemSetsTreeFlat)) {
-                    $itemSetsTreeNodeParent = & $itemSetsTreeFlat[$parentItemSet->id()];
-                    $itemSetsTreeNodeParent['children'][] = & $itemSetsTreeNodeRef;
-                    $itemSetsTreeNodeRef['parent'] = & $itemSetsTreeNodeParent;
+                    $itemSetsTreeNodeParent = &$itemSetsTreeFlat[$parentItemSet->id()];
+                    $itemSetsTreeNodeParent['children'][] = &$itemSetsTreeNodeRef;
+                    $itemSetsTreeNodeRef['parent'] = &$itemSetsTreeNodeParent;
                 }
             }
         }
