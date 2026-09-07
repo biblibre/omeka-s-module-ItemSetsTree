@@ -1,23 +1,22 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="fr" >
+<html class="writer-html5" lang="fr" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>View helpers &mdash; Documentation Item Sets Tree </title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/translations.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=d1a510d7"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/translations.js?v=e6b791cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
@@ -29,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Item Sets Tree
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Item Sets Tree
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Rechercher docs" />
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -101,8 +104,8 @@
         <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>View helpers</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">View helpers</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/view-helpers.rst.txt" rel="nofollow"> Afficher la source de la page</a>
       </li>
@@ -113,21 +116,21 @@
            <div itemprop="articleBody">
              
   <section id="view-helpers">
-<h1>View helpers<a class="headerlink" href="#view-helpers" title="Lien permanent vers cette rubrique"></a></h1>
+<h1>View helpers<a class="headerlink" href="#view-helpers" title="Lien vers cette rubrique"></a></h1>
 <section id="itemsetstree">
-<h2>itemSetsTree<a class="headerlink" href="#itemsetstree" title="Lien permanent vers cette rubrique"></a></h2>
+<h2>itemSetsTree<a class="headerlink" href="#itemsetstree" title="Lien vers cette rubrique"></a></h2>
 <p>Le <em>view helper</em> <code class="docutils literal notranslate"><span class="pre">itemSetsTree</span></code> met à disposition les méthodes suivantes:</p>
 <section id="getrootitemsets">
-<h3>getRootItemSets<a class="headerlink" href="#getrootitemsets" title="Lien permanent vers cette rubrique"></a></h3>
+<h3>getRootItemSets<a class="headerlink" href="#getrootitemsets" title="Lien vers cette rubrique"></a></h3>
 <p>Retourne les collections mères (les collections qui n’ont pas de parent).</p>
 <section id="synopsis">
-<h4>Synopsis<a class="headerlink" href="#synopsis" title="Lien permanent vers cette rubrique"></a></h4>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRootItemSets</span><span class="p">(</span><span class="nv">$options</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<h4>Synopsis<a class="headerlink" href="#synopsis" title="Lien vers cette rubrique"></a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRootItemSets</span><span class="p">(</span><span class="nv">$options</span><span class="p">);</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="arguments">
-<h4>Arguments<a class="headerlink" href="#arguments" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Arguments<a class="headerlink" href="#arguments" title="Lien vers cette rubrique"></a></h4>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">$options</span></code></dt><dd><p>A tableau associatif qui peut contenir les entrées suivantes:</p>
 <dl class="simple">
@@ -138,28 +141,28 @@
 </dl>
 </section>
 <section id="returns">
-<h4>Retourne<a class="headerlink" href="#returns" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Retourne<a class="headerlink" href="#returns" title="Lien vers cette rubrique"></a></h4>
 <p>Un tableau de <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code></p>
 </section>
 <section id="examples">
-<h4>Exemples<a class="headerlink" href="#examples" title="Lien permanent vers cette rubrique"></a></h4>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRootItemSets</span><span class="p">();</span> <span class="cp">?&gt;</span><span class="x"></span>
-<span class="cp">&lt;?php</span> <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRootItemSets</span><span class="p">([</span><span class="s1">&#39;sorting_method&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;title&#39;</span><span class="p">]);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<h4>Exemples<a class="headerlink" href="#examples" title="Lien vers cette rubrique"></a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRootItemSets</span><span class="p">();</span> <span class="cp">?&gt;</span>
+<span class="cp">&lt;?php</span> <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getRootItemSets</span><span class="p">([</span><span class="s1">'sorting_method'</span> <span class="o">=&gt;</span> <span class="s1">'title'</span><span class="p">]);</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="getitemsetstree">
-<h3>getItemSetsTree<a class="headerlink" href="#getitemsetstree" title="Lien permanent vers cette rubrique"></a></h3>
+<h3>getItemSetsTree<a class="headerlink" href="#getitemsetstree" title="Lien vers cette rubrique"></a></h3>
 <p>Retourne les collections dans une structure hiérarchique</p>
 <section id="id1">
-<h4>Synopsis<a class="headerlink" href="#id1" title="Lien permanent vers cette rubrique"></a></h4>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getItemSetsTree</span><span class="p">(</span><span class="nv">$maxDepth</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<h4>Synopsis<a class="headerlink" href="#id1" title="Lien vers cette rubrique"></a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getItemSetsTree</span><span class="p">(</span><span class="nv">$maxDepth</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="id2">
-<h4>Arguments<a class="headerlink" href="#id2" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id2" title="Lien vers cette rubrique"></a></h4>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">$maxDepth</span></code></dt><dd><p>Profondeur maximale de l’arbre. Si non renseigné ou <code class="docutils literal notranslate"><span class="pre">null</span></code>, retourne l’arbre complet.</p>
 </dd>
@@ -174,7 +177,7 @@
 </dl>
 </section>
 <section id="id3">
-<h4>Retourne<a class="headerlink" href="#id3" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Retourne<a class="headerlink" href="#id3" title="Lien vers cette rubrique"></a></h4>
 <p>Un tableau de tableaux associatifs. Chaque tableau associatif représente un nœud de l’arbre et contiendra les clés suivantes:</p>
 <blockquote>
 <div><dl class="simple">
@@ -188,25 +191,25 @@
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="p">[</span>
     <span class="p">[</span>
-        <span class="s1">&#39;itemSet&#39;</span> <span class="o">=&gt;</span> <span class="nv">$itemSet1</span><span class="p">,</span> <span class="c1">// ItemSetRepresentation</span>
-        <span class="s1">&#39;children&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+        <span class="s1">'itemSet'</span> <span class="o">=&gt;</span> <span class="nv">$itemSet1</span><span class="p">,</span> <span class="c1">// ItemSetRepresentation</span>
+        <span class="s1">'children'</span> <span class="o">=&gt;</span> <span class="p">[],</span>
     <span class="p">],</span>
     <span class="p">[</span>
-        <span class="s1">&#39;itemSet&#39;</span> <span class="o">=&gt;</span> <span class="nv">$itemSet2</span><span class="p">,</span> <span class="c1">// ItemSetRepresentation</span>
-        <span class="s1">&#39;children&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'itemSet'</span> <span class="o">=&gt;</span> <span class="nv">$itemSet2</span><span class="p">,</span> <span class="c1">// ItemSetRepresentation</span>
+        <span class="s1">'children'</span> <span class="o">=&gt;</span> <span class="p">[</span>
             <span class="p">[</span>
-                <span class="s1">&#39;itemSet&#39;</span> <span class="o">=&gt;</span> <span class="nv">$itemSet3</span><span class="p">,</span> <span class="c1">// ItemSetRepresentation</span>
-                <span class="s1">&#39;children&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+                <span class="s1">'itemSet'</span> <span class="o">=&gt;</span> <span class="nv">$itemSet3</span><span class="p">,</span> <span class="c1">// ItemSetRepresentation</span>
+                <span class="s1">'children'</span> <span class="o">=&gt;</span> <span class="p">[],</span>
             <span class="p">],</span>
         <span class="p">],</span>
     <span class="p">],</span>
 <span class="p">]</span>
-<span class="cp">?&gt;</span><span class="x"></span>
+<span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="id4">
-<h4>Exemples<a class="headerlink" href="#id4" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Exemples<a class="headerlink" href="#id4" title="Lien vers cette rubrique"></a></h4>
 <div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="c1">// returns the whole tree</span>
 <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getItemSetsTree</span><span class="p">();</span>
@@ -216,74 +219,74 @@
 
 <span class="c1">// returns an item sets tree corresponding to the current site</span>
 <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getItemSetsTree</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s1">&#39;site_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">layout</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">site</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(),</span>
+    <span class="s1">'site_id'</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">layout</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">site</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(),</span>
 <span class="p">]);</span>
 
 <span class="c1">// returns an item sets tree corresponding to the current site, limited to</span>
 <span class="c1">// two levels, sorted by title</span>
 <span class="nv">$itemSets</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getItemSetsTree</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s1">&#39;site_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">layout</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">site</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(),</span>
-    <span class="s1">&#39;sorting_method&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span>
+    <span class="s1">'site_id'</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">layout</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">site</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(),</span>
+    <span class="s1">'sorting_method'</span> <span class="o">=&gt;</span> <span class="s1">'title'</span><span class="p">,</span>
 <span class="p">]);</span>
-<span class="cp">?&gt;</span><span class="x"></span>
+<span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="getparent">
-<h3>getParent<a class="headerlink" href="#getparent" title="Lien permanent vers cette rubrique"></a></h3>
+<h3>getParent<a class="headerlink" href="#getparent" title="Lien vers cette rubrique"></a></h3>
 <p>Retourne le parent d’une collection.</p>
 <section id="id5">
-<h4>Synopsis<a class="headerlink" href="#id5" title="Lien permanent vers cette rubrique"></a></h4>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$parentItemSet</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getParent</span><span class="p">(</span><span class="nv">$itemSet</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<h4>Synopsis<a class="headerlink" href="#id5" title="Lien vers cette rubrique"></a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$parentItemSet</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getParent</span><span class="p">(</span><span class="nv">$itemSet</span><span class="p">);</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="id6">
-<h4>Arguments<a class="headerlink" href="#id6" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id6" title="Lien vers cette rubrique"></a></h4>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">$itemSet</span></code></dt><dd><p>Un objet de type <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="id7">
-<h4>Retourne<a class="headerlink" href="#id7" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Retourne<a class="headerlink" href="#id7" title="Lien vers cette rubrique"></a></h4>
 <p>Un objet de type <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code></p>
 </section>
 </section>
 <section id="getancestors">
-<h3>getAncestors<a class="headerlink" href="#getancestors" title="Lien permanent vers cette rubrique"></a></h3>
+<h3>getAncestors<a class="headerlink" href="#getancestors" title="Lien vers cette rubrique"></a></h3>
 <p>Retourne les ancêtres d’une collection.</p>
 <section id="id8">
-<h4>Synopsis<a class="headerlink" href="#id8" title="Lien permanent vers cette rubrique"></a></h4>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$ancestors</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getAncestors</span><span class="p">(</span><span class="nv">$itemSet</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<h4>Synopsis<a class="headerlink" href="#id8" title="Lien vers cette rubrique"></a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$ancestors</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getAncestors</span><span class="p">(</span><span class="nv">$itemSet</span><span class="p">);</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="id9">
-<h4>Arguments<a class="headerlink" href="#id9" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id9" title="Lien vers cette rubrique"></a></h4>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">$itemSet</span></code></dt><dd><p>Un objet de type <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="id10">
-<h4>Retourne<a class="headerlink" href="#id10" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Retourne<a class="headerlink" href="#id10" title="Lien vers cette rubrique"></a></h4>
 <p>Un tableau d’objets de type <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code>.</p>
 <p>Le premier élément sera le parent, le deuxième élément sera le grand-parent, et ainsi de suite.</p>
 </section>
 </section>
 <section id="getchildren">
-<h3>getChildren<a class="headerlink" href="#getchildren" title="Lien permanent vers cette rubrique"></a></h3>
+<h3>getChildren<a class="headerlink" href="#getchildren" title="Lien vers cette rubrique"></a></h3>
 <p>Retourne les enfants d’une collection.</p>
 <section id="id11">
-<h4>Synopsis<a class="headerlink" href="#id11" title="Lien permanent vers cette rubrique"></a></h4>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$children</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getChildren</span><span class="p">(</span><span class="nv">$itemSet</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<h4>Synopsis<a class="headerlink" href="#id11" title="Lien vers cette rubrique"></a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$children</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getChildren</span><span class="p">(</span><span class="nv">$itemSet</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="id12">
-<h4>Arguments<a class="headerlink" href="#id12" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id12" title="Lien vers cette rubrique"></a></h4>
 <dl>
 <dt><code class="docutils literal notranslate"><span class="pre">$itemSet</span></code></dt><dd><p>Un objet de type <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code></p>
 </dd>
@@ -296,28 +299,28 @@
 </dl>
 </section>
 <section id="id13">
-<h4>Retourne<a class="headerlink" href="#id13" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Retourne<a class="headerlink" href="#id13" title="Lien vers cette rubrique"></a></h4>
 <p>Un tableau d’objets de type <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code>.</p>
 </section>
 </section>
 <section id="getdescendants">
-<h3>getDescendants<a class="headerlink" href="#getdescendants" title="Lien permanent vers cette rubrique"></a></h3>
+<h3>getDescendants<a class="headerlink" href="#getdescendants" title="Lien vers cette rubrique"></a></h3>
 <p>Retourne les descendants d’une collection.</p>
 <section id="id14">
-<h4>Synopsis<a class="headerlink" href="#id14" title="Lien permanent vers cette rubrique"></a></h4>
-<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$descendants</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDescendants</span><span class="p">(</span><span class="nv">$itemSet</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="x"></span>
+<h4>Synopsis<a class="headerlink" href="#id14" title="Lien vers cette rubrique"></a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span> <span class="nv">$descendants</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">itemSetsTree</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getDescendants</span><span class="p">(</span><span class="nv">$itemSet</span><span class="p">);</span> <span class="cp">?&gt;</span>
 </pre></div>
 </div>
 </section>
 <section id="id15">
-<h4>Arguments<a class="headerlink" href="#id15" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id15" title="Lien vers cette rubrique"></a></h4>
 <dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">$itemSet</span></code></dt><dd><p>Un objet de type <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="id16">
-<h4>Retourne<a class="headerlink" href="#id16" title="Lien permanent vers cette rubrique"></a></h4>
+<h4>Retourne<a class="headerlink" href="#id16" title="Lien vers cette rubrique"></a></h4>
 <p>Un tableau d’objets de type <code class="docutils literal notranslate"><span class="pre">Omeka\Api\Representation\ItemSetRepresentation</span></code>.</p>
 </section>
 </section>
@@ -334,7 +337,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, BibLibre.</p>
+    <p>&#169; Droits d'auteur 2022, BibLibre.</p>
   </div>
 
   Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un

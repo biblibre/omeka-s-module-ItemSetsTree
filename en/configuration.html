@@ -1,22 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Configuration &mdash; Item Sets Tree  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Item Sets Tree
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Item Sets Tree
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -72,8 +75,8 @@
         <div class="rst-content style-external-links">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Configuration</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/configuration.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -84,41 +87,41 @@
            <div itemprop="articleBody">
              
   <section id="configuration">
-<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h1>
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
 <p>There are two different places where you can configure Item Sets Tree: global
 configuration and site configuration.</p>
 <section id="global-configuration">
-<h2>Global configuration<a class="headerlink" href="#global-configuration" title="Permalink to this heading"></a></h2>
+<h2>Global configuration<a class="headerlink" href="#global-configuration" title="Link to this heading"></a></h2>
 <p>You can access global configuration by going to the modules page and click on
 the <code class="docutils literal notranslate"><span class="pre">Configure</span></code> button on the corresponding row.</p>
 <img alt="_images/module-page.png" src="_images/module-page.png" />
 <p>Here is how the module configuration page looks like:</p>
 <img alt="_images/module-configuration.png" src="_images/module-configuration.png" />
 <section id="item-sets-include-descendants">
-<h3>Item sets include descendants<a class="headerlink" href="#item-sets-include-descendants" title="Permalink to this heading"></a></h3>
+<h3>Item sets include descendants<a class="headerlink" href="#item-sets-include-descendants" title="Link to this heading"></a></h3>
 <p>If enabled, this option will make Omeka act as if items of an item set also
 belong to this item set’s ascendants. For instance when searching for items,
 you can limit by item set and the results will also include items of
 descendants item sets.</p>
 </section>
 <section id="sorting-method">
-<span id="configuration-sorting-method"></span><h3>Sorting method<a class="headerlink" href="#sorting-method" title="Permalink to this heading"></a></h3>
+<span id="configuration-sorting-method"></span><h3>Sorting method<a class="headerlink" href="#sorting-method" title="Link to this heading"></a></h3>
 <p>By default, item sets of the same level in the tree are sorted by title. You
 can disable that by selecting <code class="docutils literal notranslate"><span class="pre">Do</span> <span class="pre">not</span> <span class="pre">sort</span></code>. In that case, the order of item
 sets will be what you <a class="reference internal" href="define-item-set-hierarchy.html"><span class="doc">defined in the item set hierarchy</span></a></p>
 </section>
 </section>
 <section id="site-configuration">
-<span id="id1"></span><h2>Site configuration<a class="headerlink" href="#site-configuration" title="Permalink to this heading"></a></h2>
+<span id="id1"></span><h2>Site configuration<a class="headerlink" href="#site-configuration" title="Link to this heading"></a></h2>
 <p>You can access site configuration by going to the <a class="reference external" href="https://omeka.org/s/docs/user-manual/sites/site_settings/#settings">site settings page</a>.</p>
 <p>In this page there is a section called <code class="docutils literal notranslate"><span class="pre">Item</span> <span class="pre">Sets</span> <span class="pre">Tree</span></code>.</p>
 <img alt="_images/site-configuration.png" src="_images/site-configuration.png" />
 <section id="display">
-<h3>Display<a class="headerlink" href="#display" title="Permalink to this heading"></a></h3>
+<h3>Display<a class="headerlink" href="#display" title="Link to this heading"></a></h3>
 <p>This setting controls which item sets will be displayed, depending on which item
 sets have been added to the site. (See <a class="reference external" href="https://omeka.org/s/docs/user-manual/sites/site_resources/#item-sets">how to add an item set to a site</a>)</p>
 <section id="possible-values">
-<h4>Possible values<a class="headerlink" href="#possible-values" title="Permalink to this heading"></a></h4>
+<h4>Possible values<a class="headerlink" href="#possible-values" title="Link to this heading"></a></h4>
 <dl class="simple">
 <dt>Display all item sets without considering what is selected in the Resources tab</dt><dd><p>This will always display all item sets, no matter which item sets were
 added to the site.</p>
