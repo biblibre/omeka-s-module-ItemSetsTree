@@ -15,7 +15,7 @@ steps:
   - bash -c "cd ../.. && php /usr/local/libexec/wait-for-db.php"
   - ../../vendor/bin/phpunit
   - ../../node_modules/.bin/gulp test:module:cs
-  image: git.biblibre.com/biblibre/omeka-s-ci:4.0.4-php8.2
+  image: git.biblibre.com/omeka-s/omeka-s-ci:4.0.4-php8.2
   name: test
 type: docker
 workspace:
@@ -37,7 +37,7 @@ steps:
   - bash -c "cd ../.. && php /usr/local/libexec/wait-for-db.php"
   - ../../vendor/bin/phpunit
   - ../../node_modules/.bin/gulp test:module:cs
-  image: git.biblibre.com/biblibre/omeka-s-ci:4.1.1-php8.2
+  image: git.biblibre.com/omeka-s/omeka-s-ci:4.1.1-php8.2
   name: test
 type: docker
 workspace:
@@ -59,7 +59,7 @@ steps:
   - bash -c "cd ../.. && php /usr/local/libexec/wait-for-db.php"
   - ../../vendor/bin/phpunit
   - ../../node_modules/.bin/gulp test:module:cs
-  image: git.biblibre.com/biblibre/omeka-s-ci:4.2.1-php8.2
+  image: git.biblibre.com/omeka-s/omeka-s-ci:4.2.1-php8.2
   name: test
 type: docker
 workspace:
@@ -81,7 +81,7 @@ steps:
   - bash -c "cd ../.. && php /usr/local/libexec/wait-for-db.php"
   - ../../vendor/bin/phpunit
   - ../../node_modules/.bin/gulp test:module:cs
-  image: git.biblibre.com/biblibre/omeka-s-ci:4.2.1-php8.3
+  image: git.biblibre.com/omeka-s/omeka-s-ci:4.2.1-php8.3
   name: test
 type: docker
 workspace:
@@ -103,7 +103,7 @@ steps:
   - bash -c "cd ../.. && php /usr/local/libexec/wait-for-db.php"
   - ../../vendor/bin/phpunit
   - ../../node_modules/.bin/gulp test:module:cs
-  image: git.biblibre.com/biblibre/omeka-s-ci:4.2.1-php8.4
+  image: git.biblibre.com/omeka-s/omeka-s-ci:4.2.1-php8.4
   name: test
 type: docker
 workspace:
@@ -125,7 +125,7 @@ steps:
   - bash -c "cd ../.. && php /usr/local/libexec/wait-for-db.php"
   - ../../vendor/bin/phpunit
   - ../../node_modules/.bin/gulp test:module:cs
-  image: git.biblibre.com/biblibre/omeka-s-ci:4.2.1-php8.5
+  image: git.biblibre.com/omeka-s/omeka-s-ci:4.2.1-php8.5
   name: test
 type: docker
 workspace:
@@ -154,6 +154,6 @@ trigger:
 type: docker
 ---
 kind: signature
-hmac: 858cf24639c9498fad29225e29c898465827cc01e267b9bc0038b299b681eb6f
+hmac: 39036b5aaa57f51e076dc0168bde17e52234b9b703b76995d0421e973dd6bb19
 
 ...
