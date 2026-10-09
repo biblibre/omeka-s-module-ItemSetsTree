@@ -131,68 +131,195 @@ class ItemSetsTree
         return $siteItemSets;
     }
 
+    /**
+     * @deprecated Use getTree instead
+     */
     public function getItemSetsTree(?int $maxDepth = null, array $options = [])
     {
-        $itemSetsTree = [];
-        $itemSetsTreeFlat = [];
+        return $this->getTree(
+            maxDepth: $maxDepth,
+            siteId: $options['site_id'] ?? null,
+            sortBy: $options['sorting_method'] ?? null
+        );
+    }
 
-        $site_id = $options['site_id'] ?? null;
-        if ($site_id) {
-            $itemSets = $this->getSiteItemSets($site_id, $options);
-        } else {
-            $itemSets = $this->api->search('item_sets')->getContent();
+    /**
+     * Fetch item sets in a tree-like nested arrays structure
+     *
+     * @param ?int $rootItemSetId   If given, fetch a sub-tree starting at this
+     *                              item set. If $siteId is given too the
+     *                              site's itemsetstree_display setting only
+     *                              allows site's item sets, this item set
+     *                              needs to belong to the site too.
+     * @param ?int $siteId  If given, the item sets returned depend on the
+     *                      site's itemsetstree_display setting
+     * @param ?int $maxDepth    Maximum depth of the tree
+     * @param ?string $sortBy   Sort item sets by title ("title") or do not
+     *                          sort/use the order set manually in the admin
+     *                          ("none")
+     *
+     * @return array[]  A tree-like nested arrays structure. The top-level
+     *                  elements are associative arrays with the following keys:
+     *                  * "itemSet": \Omeka\Api\Representation\ItemSetRepresentation
+     *                  * "children": array of associative arrays similar to the top-elements
+     *                  * "parent": reference to the parent element in the tree
+     *                  * "rank": the order of this element among its siblings (used when $sortBy === "none")
+     */
+    public function getTree(?int $rootItemSetId = null, ?int $siteId = null, ?int $maxDepth = null, ?string $sortBy = null): array
+    {
+        $tree = [];
+
+        $display = 'all';
+        if ($siteId !== null) {
+            $display = $this->siteSettings->get('itemsetstree_display', 'all', $siteId);
         }
 
-        foreach ($itemSets as $itemSet) {
-            $itemSetsTreeFlat[$itemSet->id()] = [
-                'itemSet' => $itemSet,
+        $sortBy ??= $this->settings->get('itemsetstree_sorting_method', 'title');
+
+        $qb = $this->em->createQueryBuilder();
+        $qb->select(['itemSet', 'edge']);
+        $qb->from('Omeka\Entity\ItemSet', 'itemSet');
+        $qb->leftJoin('ItemSetsTree\Entity\ItemSetsTreeEdge', 'edge', 'WITH', 'itemSet = edge.itemSet');
+
+        if ($sortBy === 'title') {
+            $qb->addOrderBy('itemSet.title');
+        } else {
+            $qb->addOrderBy('edge.rank');
+        }
+
+        // First query needs to be slightly different than the next (in-loop) queries
+        $firstQb = clone $qb;
+        if ($rootItemSetId !== null) {
+            $firstQb->andWhere('edge.parentItemSet = :parentItemSetId');
+            $firstQb->setParameter('parentItemSetId', $rootItemSetId);
+
+            if ($siteId !== null && $display !== 'all') {
+                // Make sure the root item set belongs to the site
+                $firstQb->innerJoin('edge.parentItemSet', 'parentItemSet');
+                $firstQb->innerJoin('parentItemSet.siteItemSets', 'parentItemSetSiteItemSets');
+                $firstQb->andWhere('parentItemSetSiteItemSets.site = :siteId');
+
+                if ($display === 'selected') {
+                    // Select only children that belongs to the site
+                    $firstQb->innerJoin('itemSet.siteItemSets', 'siteItemSets');
+                    $firstQb->andWhere('siteItemSets.site = :siteId');
+
+                    // Same while in loop
+                    $qb->innerJoin('itemSet.siteItemSets', 'siteItemSets');
+                    $qb->andWhere('siteItemSets.site = :siteId');
+                    $qb->setParameter('siteId', $siteId);
+                }
+
+                $firstQb->setParameter('siteId', $siteId);
+            }
+        } else {
+            if ($siteId !== null && $display !== 'all') {
+                // Select all item sets that belongs to the site, they can be at any depth
+                $firstQb->innerJoin('itemSet.siteItemSets', 'siteItemSets');
+                $firstQb->andWhere('siteItemSets.site = :siteId');
+                $firstQb->setParameter('siteId', $siteId);
+            } else {
+                // Select only root item sets
+                $firstQb->andWhere('edge.parentItemSet IS NULL');
+            }
+        }
+
+        $qb->andWhere('edge.parentItemSet IN (:parentItemSetsIds)');
+
+        $results = $firstQb->getQuery()->getResult();
+
+        $itemSetMap = [];
+
+        $depth = 1;
+
+        if ($rootItemSetId) {
+            $rootItemSet = $this->em->find('Omeka\Entity\ItemSet', $rootItemSetId);
+            $itemSetMap[$rootItemSetId] = [
+                'itemSet' => $this->getItemSetRepresentation($rootItemSet),
                 'children' => [],
                 'parent' => null,
                 'rank' => 0,
             ];
+
+            $depth++;
         }
 
-        foreach ($itemSetsTreeFlat as $id => &$itemSetsTreeNodeRef) {
-            $edge = $this->getItemSetsTreeEdge($itemSetsTreeNodeRef['itemSet']);
-            if ($edge) {
-                $itemSetsTreeNodeRef['rank'] = $edge->rank();
+        while ($results && ($maxDepth === null || $depth <= $maxDepth)) {
+            $newItemSetsIds = [];
 
-                $parentItemSet = $edge->parentItemSet();
-                if ($parentItemSet && array_key_exists($parentItemSet->id(), $itemSetsTreeFlat)) {
-                    $itemSetsTreeNodeParent = &$itemSetsTreeFlat[$parentItemSet->id()];
-                    $itemSetsTreeNodeParent['children'][] = &$itemSetsTreeNodeRef;
-                    $itemSetsTreeNodeRef['parent'] = &$itemSetsTreeNodeParent;
+            // First loop: put new elements into $itemSetMap
+            for ($i = 0; $i + 1 < count($results); $i += 2) {
+                /**
+                 * @var \Omeka\Entity\ItemSet $itemSet
+                 * @var ?\ItemSetsTree\Entity\ItemSetsTreeEdge $edge
+                 */
+                $itemSet = $results[$i];
+                $edge = $results[$i + 1];
+
+                if (!array_key_exists($itemSet->getId(), $itemSetMap)) {
+                    $itemSetMap[$itemSet->getId()] = [
+                        'itemSet' => $this->getItemSetRepresentation($itemSet),
+                        'children' => [],
+                        'parent' => null,
+                        'rank' => $edge ? $edge->getRank() : 0,
+                    ];
+
+                    $newItemSetsIds[$itemSet->getId()] = $itemSet->getId();
                 }
             }
+
+            // Second loop: create parent/child relations
+            for ($i = 0; $i + 1 < count($results); $i += 2) {
+                /**
+                 * @var \Omeka\Entity\ItemSet $itemSet
+                 * @var ?\ItemSetsTree\Entity\ItemSetsTreeEdge $edge
+                 * @var ?\Omeka\Entity\ItemSet $parentItemSet
+                 */
+                $itemSet = $results[$i];
+                $edge = $results[$i + 1];
+                $parentItemSet = $edge?->getParentItemSet();
+
+                $isNew = array_key_exists($itemSet->getId(), $newItemSetsIds);
+
+                if ($isNew && $parentItemSet && array_key_exists($parentItemSet->getId(), $itemSetMap)) {
+                    $itemSetMap[$parentItemSet->getId()]['children'][] = &$itemSetMap[$itemSet->getId()];
+                    $itemSetMap[$itemSet->getId()]['parent'] = &$itemSetMap[$parentItemSet->getId()];
+                }
+            }
+
+            if ($rootItemSetId === null && $siteId !== null && $display === 'selected') {
+                // In this particular case, all needed item sets have been
+                // fetched by the first query, so we don't need to fetch more
+                break;
+            }
+
+            // Prepare next iteration
+            $qb->setParameter('parentItemSetsIds', $newItemSetsIds);
+            $results = $qb->getQuery()->getResult();
+            $depth++;
         }
 
-        $sorting_method = $options['sorting_method'] ?? $this->settings->get('itemsetstree_sorting_method', 'title');
-        if ($sorting_method === 'title') {
-            $sortingFunction = function ($a, $b) {
-                return strcmp($a['itemSet']->title() ?? '', $b['itemSet']->title() ?? '');
-            };
-        } else {
-            $sortingFunction = function ($a, $b) {
-                return $a['rank'] - $b['rank'];
-            };
-        }
-
-        foreach ($itemSetsTreeFlat as &$itemSetsTreeNodeRef) {
-            usort($itemSetsTreeNodeRef['children'], $sortingFunction);
-        }
-
-        foreach ($itemSetsTreeFlat as $itemSetsTreeNode) {
-            if (is_null($itemSetsTreeNode['parent'])) {
-                $itemSetsTree[] = $itemSetsTreeNode;
+        foreach ($itemSetMap as $itemSetNode) {
+            if ($itemSetNode['parent'] === null) {
+                $tree[] = $itemSetNode;
             }
         }
-        usort($itemSetsTree, $sortingFunction);
 
-        if ($maxDepth) {
-            $this->truncateTree($itemSetsTree, $maxDepth);
+        // When no root item set is selected and site's display setting is not
+        // "all", the above code can build a tree more deep than $maxDepth and
+        // can mess up the order so we need to truncate it and reorder it
+        if ($rootItemSetId === null && $siteId !== null && $display !== 'all' && $maxDepth !== null && $maxDepth > 0) {
+            $this->truncateTree($tree, $maxDepth);
+
+            if ($sortBy === 'title') {
+                $sortFn = fn ($a, $b) => strcmp($a['itemSet']->title() ?? '', $b['itemSet']->title() ?? '');
+            } else {
+                $sortFn = fn ($a, $b) => $a['rank'] - $b['rank'];
+            }
+            $this->sortTree($tree, $sortFn);
         }
 
-        return $itemSetsTree;
+        return $tree;
     }
 
     public function getParent(ItemSetRepresentation $itemSet): ?ItemSetRepresentation
@@ -334,6 +461,14 @@ class ItemSetsTree
 
         foreach ($tree as &$treeNode) {
             $this->truncateTree($treeNode['children'], $maxDepth, $depth + 1);
+        }
+    }
+
+    protected function sortTree(array &$tree, callable $sortFn): void
+    {
+        usort($tree, $sortFn);
+        foreach ($tree as $node) {
+            $this->sortTree($node['children'], $sortFn);
         }
     }
 }
