@@ -128,6 +128,23 @@ class ItemSetsTree extends AbstractBlockLayout
 
     public function render(PhpRenderer $view, SitePageBlockRepresentation $block)
     {
-        return $view->partial('common/block-layout/item-sets-tree', $block->data());
+        $rootItemSetId = $block->dataValue('rootItemSetId');
+        $excludeRootItemSet = $block->dataValue('excludeRootItemSet');
+
+        $tree = $view->itemSetsTree()->getTree(rootItemSetId: $rootItemSetId);
+        if ($rootItemSetId && $excludeRootItemSet && $tree) {
+            $tree = $tree[0]['children'];
+        }
+
+        $values = [
+            'tree' => $tree,
+            'block' => $block,
+            'heading' => $block->dataValue('heading'),
+            'displayCount' => $block->dataValue('displayCount'),
+            'displayDescription' => $block->dataValue('displayDescription'),
+            'linkEmpty' => $block->dataValue('linkEmpty'),
+        ];
+
+        return $view->partial('common/block-layout/item-sets-tree', $values);
     }
 }

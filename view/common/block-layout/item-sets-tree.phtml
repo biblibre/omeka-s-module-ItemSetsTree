@@ -1,19 +1,25 @@
+<?php
+/**
+ * @var array $tree
+ * @var Omeka\Api\Representation\SitePageBlockRepresentation $block
+ * @var ?string $heading
+ * @var ?string $displayCount
+ * @var ?string $displayDescription
+ * @var ?string $linkEmpty
+ */
+?>
 <div class="block-item-sets-tree">
     <?php if ($heading): ?>
         <h2><?= $this->escapeHtml($heading) ?></h2>
     <?php endif; ?>
 
-    <?php
-    $tree = $this->itemSetsTree()->getTree(rootItemSetId: $rootItemSetId);
-    if ($rootItemSetId && $excludeRootItemSet && $tree) {
-        $tree = $tree[0]['children'];
-    }
-
-    echo $this->partial('item-sets-tree/item-sets-tree', [
-        'itemSetsTree' => $tree,
-        'displayCount' => $displayCount,
-        'displayDescription' => $displayDescription,
-        'linkEmpty' => $linkEmpty,
-    ]);
-    ?>
+    <?= $this->partial(
+        'item-sets-tree/item-sets-tree',
+        [
+            'itemSetsTree' => $tree,
+            'displayCount' => $displayCount,
+            'displayDescription' => $displayDescription,
+            'linkEmpty' => $linkEmpty,
+        ],
+    ) ?>
 </div>
