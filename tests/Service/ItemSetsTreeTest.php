@@ -22,6 +22,7 @@ class ItemSetsTreeTest extends AbstractHttpControllerTestCase
         $this->itemSet2 = $this->createItemSet('Item set 2');
         $this->itemSet3 = $this->createItemSet('Item set 3');
         $this->itemSet4 = $this->createItemSet('Item set 4');
+        $this->itemSet5 = $this->createItemSet('Item set 5');
         $this->site = $this->createSite('Default', 'default', [$this->itemSet2, $this->itemSet3]);
     }
 
@@ -36,13 +37,14 @@ class ItemSetsTreeTest extends AbstractHttpControllerTestCase
         $api->delete('item_sets', $this->itemSet2->id());
         $api->delete('item_sets', $this->itemSet3->id());
         $api->delete('item_sets', $this->itemSet4->id());
+        $api->delete('item_sets', $this->itemSet5->id());
     }
 
     public function testGetRootItemSets()
     {
         $services = $this->getServiceLocator();
         $itemSetsTree = $services->get('ItemSetsTree');
-        $this->assertCount(4, $itemSetsTree->getRootItemSets());
+        $this->assertCount(5, $itemSetsTree->getRootItemSets());
     }
 
     public function testGetItemSetsTree()
@@ -67,6 +69,9 @@ class ItemSetsTreeTest extends AbstractHttpControllerTestCase
                     ],
                 ],
             ],
+            [
+                'item-set-id' => $this->itemSet5->id(),
+            ],
         ]);
 
         $settings->set('itemsetstree_sorting_method', 'none');
@@ -74,7 +79,7 @@ class ItemSetsTreeTest extends AbstractHttpControllerTestCase
         $tree = $itemSetsTree->getItemSetsTree();
 
         $this->assertIsArray($tree);
-        $this->assertCount(1, $tree);
+        $this->assertCount(2, $tree);
         $this->assertIsArray($tree[0]);
 
         $this->assertArrayHasKey('itemSet', $tree[0]);
@@ -177,12 +182,15 @@ class ItemSetsTreeTest extends AbstractHttpControllerTestCase
                     ],
                 ],
             ],
+            [
+                'item-set-id' => $this->itemSet5->id(),
+            ],
         ]);
 
         $tree = $itemSetsTree->getItemSetsTree(2);
 
         $this->assertIsArray($tree);
-        $this->assertCount(1, $tree);
+        $this->assertCount(2, $tree);
         $this->assertIsArray($tree[0]);
 
         $this->assertArrayHasKey('itemSet', $tree[0]);
@@ -196,6 +204,132 @@ class ItemSetsTreeTest extends AbstractHttpControllerTestCase
         $this->assertArrayHasKey('itemSet', $tree[0]['children'][0]);
         $this->assertInstanceOf(ItemSetRepresentation::class, $tree[0]['children'][0]['itemSet']);
         $this->assertEquals($this->itemSet2->id(), $tree[0]['children'][0]['itemSet']->id());
+
+        $this->assertArrayHasKey('children', $tree[0]['children'][0]);
+        $this->assertIsArray($tree[0]['children'][0]['children']);
+        $this->assertCount(0, $tree[0]['children'][0]['children']);
+    }
+
+    public function testGetTreeAllOptions()
+    {
+        $services = $this->getServiceLocator();
+        $api = $services->get('Omeka\ApiManager');
+        $itemSetsTree = $services->get('ItemSetsTree');
+        $settings = $services->get('Omeka\Settings');
+        $siteSettings = $services->get('Omeka\Settings\Site');
+
+        $this->loginAsAdmin();
+        $itemSetsTree->replaceTree([
+            [
+                'item-set-id' => $this->itemSet1->id(),
+                'children' => [
+                    [
+                        'item-set-id' => $this->itemSet2->id(),
+                        'children' => [
+                            [
+                                'item-set-id' => $this->itemSet3->id(),
+                                'children' => [
+                                    [
+                                        'item-set-id' => $this->itemSet4->id(),
+                                        'children' => [
+                                            [
+                                                'item-set-id' => $this->itemSet5->id(),
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $siteSettings->set('itemsetstree_display', 'selected-and-descendants', $this->site->id());
+
+        $tree = $itemSetsTree->getTree(
+            siteId: $this->site->id(),
+            rootItemSetId: $this->itemSet3->id(),
+            maxDepth: 2,
+        );
+
+        $this->assertIsArray($tree);
+        $this->assertCount(1, $tree);
+        $this->assertIsArray($tree[0]);
+
+        $this->assertArrayHasKey('itemSet', $tree[0]);
+        $this->assertInstanceOf(ItemSetRepresentation::class, $tree[0]['itemSet']);
+        $this->assertEquals($this->itemSet3->id(), $tree[0]['itemSet']->id());
+
+        $this->assertArrayHasKey('children', $tree[0]);
+        $this->assertIsArray($tree[0]['children']);
+        $this->assertCount(1, $tree[0]['children']);
+
+        $this->assertArrayHasKey('itemSet', $tree[0]['children'][0]);
+        $this->assertInstanceOf(ItemSetRepresentation::class, $tree[0]['children'][0]['itemSet']);
+        $this->assertEquals($this->itemSet4->id(), $tree[0]['children'][0]['itemSet']->id());
+
+        $this->assertArrayHasKey('children', $tree[0]['children'][0]);
+        $this->assertIsArray($tree[0]['children'][0]['children']);
+        $this->assertCount(0, $tree[0]['children'][0]['children']);
+    }
+
+    public function testGetTreeSiteWithoutRootItemSet()
+    {
+        $services = $this->getServiceLocator();
+        $api = $services->get('Omeka\ApiManager');
+        $itemSetsTree = $services->get('ItemSetsTree');
+        $settings = $services->get('Omeka\Settings');
+        $siteSettings = $services->get('Omeka\Settings\Site');
+
+        $this->loginAsAdmin();
+        $itemSetsTree->replaceTree([
+            [
+                'item-set-id' => $this->itemSet1->id(),
+                'children' => [
+                    [
+                        'item-set-id' => $this->itemSet2->id(),
+                        'children' => [
+                            [
+                                'item-set-id' => $this->itemSet3->id(),
+                                'children' => [
+                                    [
+                                        'item-set-id' => $this->itemSet4->id(),
+                                        'children' => [
+                                            [
+                                                'item-set-id' => $this->itemSet5->id(),
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $siteSettings->set('itemsetstree_display', 'selected-and-descendants', $this->site->id());
+        $tree = $itemSetsTree->getTree(
+            siteId: $this->site->id(),
+            maxDepth: 2,
+        );
+
+        $this->assertIsArray($tree);
+        $this->assertCount(1, $tree);
+        $this->assertIsArray($tree[0]);
+
+        $this->assertArrayHasKey('itemSet', $tree[0]);
+        $this->assertInstanceOf(ItemSetRepresentation::class, $tree[0]['itemSet']);
+        $this->assertEquals($this->itemSet2->id(), $tree[0]['itemSet']->id());
+
+        $this->assertArrayHasKey('children', $tree[0]);
+        $this->assertIsArray($tree[0]['children']);
+        $this->assertCount(1, $tree[0]['children']);
+
+        $this->assertArrayHasKey('itemSet', $tree[0]['children'][0]);
+        $this->assertInstanceOf(ItemSetRepresentation::class, $tree[0]['children'][0]['itemSet']);
+        $this->assertEquals($this->itemSet3->id(), $tree[0]['children'][0]['itemSet']->id());
 
         $this->assertArrayHasKey('children', $tree[0]['children'][0]);
         $this->assertIsArray($tree[0]['children'][0]['children']);
