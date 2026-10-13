@@ -87,9 +87,9 @@ class ItemSetsTree extends AbstractBlockLayout
             'name' => 'o:block[__blockIndex__][o:data][rootItemSetId]',
             'type' => 'ItemSetsTree\Form\Element\ItemSetsTreeSelect',
             'options' => [
-                'label' => 'Subtree root', // @translate
-                'info' => 'Show only this item set and its descendants.',
-                'empty_option' => '',
+                'label' => 'Limit to a subtree', // @translate
+                'info' => 'Show only the selected item set and its descendants.', // @translate
+                'empty_option' => 'Select subtree root…', // @translate
             ],
         ]);
         $form->add([
@@ -97,7 +97,7 @@ class ItemSetsTree extends AbstractBlockLayout
             'type' => 'Laminas\Form\Element\Checkbox',
             'options' => [
                 'label' => 'Exclude subtree root', // @translate
-                'info' => 'Exclude the item set selected above. Has no effect if "Limit to a subtree" is not set',
+                'info' => 'Exclude the item set selected above. Has no effect if "Limit to a subtree" is not set', // @translate
             ],
         ]);
 
