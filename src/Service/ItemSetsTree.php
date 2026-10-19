@@ -417,12 +417,6 @@ class ItemSetsTree
         return new ItemSetRepresentation($itemSet, $itemSetAdapter);
     }
 
-    protected function getItemSetsTreeEdge(ItemSetRepresentation $itemSet)
-    {
-        $edges = $this->api->search('item_sets_tree_edges', ['item_set_id' => $itemSet->id()])->getContent();
-        return reset($edges);
-    }
-
     protected function truncateTree(array &$tree, int $maxDepth, int $depth = 1)
     {
         if ($depth === $maxDepth) {
