@@ -440,7 +440,7 @@ class ItemSetsTree
     protected function sortTree(array &$tree, callable $sortFn): void
     {
         usort($tree, $sortFn);
-        foreach ($tree as $node) {
+        foreach ($tree as &$node) {
             $this->sortTree($node['children'], $sortFn);
         }
     }
