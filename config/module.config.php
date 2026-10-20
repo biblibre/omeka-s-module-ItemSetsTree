@@ -9,8 +9,8 @@ return [
         ],
     ],
     'block_layouts' => [
-        'invokables' => [
-            'itemSetsTree' => Site\BlockLayout\ItemSetsTree::class,
+        'factories' => [
+            'itemSetsTree' => Service\Site\BlockLayout\ItemSetsTreeFactory::class,
         ],
     ],
     'controller_plugins' => [
@@ -30,6 +30,11 @@ return [
         ],
         'proxy_paths' => [
             dirname(__DIR__) . '/data/doctrine-proxies',
+        ],
+    ],
+    'form_elements' => [
+        'factories' => [
+            'ItemSetsTree\Form\Element\ItemSetsTreeSelect' => Service\Form\Element\ItemSetsTreeSelectFactory::class,
         ],
     ],
     'navigation' => [

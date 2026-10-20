@@ -4,5 +4,5 @@
     <?php echo $this->hyperlink($this->translate('Edit'), $this->url(null, ['action' => 'edit'], true), ['class' => 'button']); ?>
 </div>
 
-<?php $itemSetsTree = $this->itemSetsTree()->getItemSetsTree(); ?>
-<?php echo $this->partial('item-sets-tree/item-sets-tree', ['itemSetsTree' => $itemSetsTree]); ?>
+<?php $tree = $this->itemSetsTree()->getTree(); ?>
+<?= $this->partial('item-sets-tree/item-sets-tree', ['itemSetsTree' => $tree]); ?>

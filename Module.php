@@ -56,6 +56,10 @@ class Module extends AbstractModule
             $connection->exec('ALTER TABLE item_sets_tree_edge ADD COLUMN `rank` INT NOT NULL AFTER parent_item_set_id');
             $connection->exec('INSERT IGNORE INTO item_sets_tree_edge (item_set_id, parent_item_set_id, `rank`) SELECT item_set.id, NULL, 0 FROM item_set');
         }
+
+        if (Comparator::lessThan($oldVersion, '0.8.0')) {
+            $connection->exec('INSERT IGNORE INTO item_sets_tree_edge (item_set_id, parent_item_set_id, `rank`) SELECT item_set.id, NULL, 0 FROM item_set');
+        }
     }
 
     public function uninstall(ServiceLocatorInterface $services)
@@ -90,6 +94,13 @@ class Module extends AbstractModule
             ],
             ['create', 'update', 'delete']
         );
+
+        $em = $this->getServiceLocator()->get('Omeka\EntityManager');
+        $filters = $em->getFilters();
+        if ($filters->isEnabled('resource_visibility')) {
+            $filter = $filters->getFilter('resource_visibility');
+            $filter->addRelatedEntity('ItemSetsTree\Entity\ItemSetsTreeEdge', 'item_set_id');
+        }
     }
 
     public function attachListeners(SharedEventManagerInterface $sharedEventManager)
@@ -109,6 +120,12 @@ class Module extends AbstractModule
                 [$this, 'onItemSetSave']
             );
         }
+
+        $sharedEventManager->attach(
+            'Omeka\Entity\ItemSet',
+            "entity.persist.post",
+            [$this, 'onItemSetPersist']
+        );
 
         foreach (['add', 'edit'] as $action) {
             $sharedEventManager->attach(
@@ -213,6 +230,19 @@ class Module extends AbstractModule
                 $api->create('item_sets_tree_edges', ['o:item_set' => $itemSet, 'o:parent_item_set' => $parentItemSet]);
             }
         }
+    }
+
+    public function onItemSetPersist(Event $event)
+    {
+        $services = $this->getServiceLocator();
+        $connection = $services->get('Omeka\Connection');
+
+        $itemSet = $event->getTarget();
+
+        $connection->executeStatement(
+            'INSERT IGNORE INTO item_sets_tree_edge SET item_set_id = ?, parent_item_set_id = NULL, rank = 0',
+            [$itemSet->getId()],
+        );
     }
 
     public function onItemSetSectionNav(Event $event)

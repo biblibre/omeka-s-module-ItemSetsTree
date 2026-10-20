@@ -1,0 +1,13 @@
+<a href="#" class="collapse" aria-label="collapse"><h4><?= $this->escapeHtml($this->translate('Display')) ?></h4></a>
+<div class="collapsible">
+    <?= $this->formRow($form->get('o:block[__blockIndex__][o:data][heading]')) ?>
+    <?= $this->formRow($form->get('o:block[__blockIndex__][o:data][displayCount]')) ?>
+    <?= $this->formRow($form->get('o:block[__blockIndex__][o:data][displayDescription]')) ?>
+    <?= $this->formRow($form->get('o:block[__blockIndex__][o:data][linkEmpty]')) ?>
+</div>
+
+<a href="#" class="collapse" aria-label="collapse"><h4><?= $this->escapeHtml($this->translate('Subtree')) ?></h4></a>
+<div class="collapsible">
+    <?= $this->formRow($form->get('o:block[__blockIndex__][o:data][rootItemSetId]')) ?>
+    <?= $this->formRow($form->get('o:block[__blockIndex__][o:data][excludeRootItemSet]')) ?>
+</div>

@@ -43,6 +43,8 @@ class ItemSetsTree extends AbstractHelper
     }
 
     /**
+     * @deprecated Use getTree() instead
+     *
      * @return \Omeka\Api\Representation\ItemSetRepresentation[]
      */
     public function getItemSetsTree(?int $maxDepth = null, array $options = [])
@@ -87,5 +89,27 @@ class ItemSetsTree extends AbstractHelper
     public function getDescendants(ItemSetRepresentation $itemSet, array $options = [])
     {
         return $this->itemSetsTree->getDescendants($itemSet, $options);
+    }
+
+    /**
+     * @see \ItemSetsTree\Service\ItemSetsTree::getTree()
+     *
+     * @param ?int $siteId  Defaults to the current site's id, if any
+     */
+    public function getTree(?int $rootItemSetId = null, ?int $siteId = null, ?int $maxDepth = null, ?string $sortBy = null): array
+    {
+        if ($siteId === null) {
+            $currentSite = $this->getView()->layout()->site;
+            if ($currentSite) {
+                $siteId = $currentSite->id();
+            }
+        }
+
+        return $this->itemSetsTree->getTree(
+            rootItemSetId: $rootItemSetId,
+            siteId: $siteId,
+            maxDepth: $maxDepth,
+            sortBy: $sortBy,
+        );
     }
 }
