@@ -5,8 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.8.0] - 2026-10-20
 
+The minimum supported version of Omeka S is now 3.1.0
+
+- Add site page block options to display only a subtree
 - Update python dependencies for building documentation
 
 ## [0.7.5] - 2026-01-07
@@ -109,6 +112,7 @@ Omeka S is 3.0.
 
 Initial release
 
+[0.8.0]: https://github.com/biblibre/omeka-s-module-ItemSetsTree/releases/tag/v0.8.0
 [0.7.5]: https://github.com/biblibre/omeka-s-module-ItemSetsTree/releases/tag/v0.7.5
 [0.7.4]: https://github.com/biblibre/omeka-s-module-ItemSetsTree/releases/tag/v0.7.4
 [0.7.3]: https://github.com/biblibre/omeka-s-module-ItemSetsTree/releases/tag/v0.7.3
